@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0e1116">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="컴판다 온에어">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>컴판다 온에어</title>
+  <style>
+    :root{
+      color-scheme:dark;
+      --bg:#0e1116; --card:#171c24; --line:#29313d;
+      --txt:#f5f7fa; --muted:#9da8b6; --accent:#e53935;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
+    body{min-height:100vh;min-height:100dvh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+    .wrap{max-width:760px;margin:auto;padding:18px 14px 28px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 16px}
+    h1{font-size:24px;margin:0}
+    .live{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:var(--accent)}
+    .desc{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 14px}
+    .install{width:100%;border:1px solid var(--line);background:#202734;color:white;border-radius:14px;padding:14px;font-size:16px;font-weight:800;margin-bottom:16px}
+    .ios{display:none;background:#141922;border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:#d8dee8;font-size:14px;line-height:1.55;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .ch{display:flex;flex-direction:column;justify-content:space-between;min-height:126px;padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);transition:.15s transform,.15s border-color}
+    .ch:active{transform:scale(.985)}
+    .name{font-size:21px;font-weight:900;letter-spacing:-.3px}
+    .sub{font-size:13px;color:var(--muted);margin-top:6px}
+    .go{align-self:flex-end;margin-top:18px;font-size:13px;font-weight:800;color:#fff;background:#252d39;border-radius:999px;padding:7px 9px}
+    .notice{margin-top:17px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:12px;line-height:1.6}
+    @media (max-width:390px){.grid{grid-template-columns:1fr}.ch{min-height:104px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <h1>컴판다 지상파 ON AIR</h1>
+      <span class="live">LIVE</span>
+    </div>
+    <p class="desc">갤럭시·아이폰 홈 화면에 설치해서 KBS·MBC·SBS·EBS 공식 온에어로 바로 이동합니다.</p>
+
+    <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
+    <div id="iosGuide" class="ios">
+      아이폰에서는 Safari 하단의 <b>공유</b> 버튼 → <b>홈 화면에 추가</b>를 선택하세요.
+    </div>
+
+    <section class="grid" aria-label="지상파 온에어">
+      <a class="ch" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" rel="noopener">
+        <div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span>
+      </a>
+      <a class="ch" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" rel="noopener">
+        <div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span>
+      </a>
+      <a class="ch" href="https://onair.imbc.com/" rel="noopener">
+        <div><div class="name">MBC</div><div class="sub">iMBC 공식 온에어</div></div><span class="go">바로보기 ↗</span>
+      </a>
+      <a class="ch" href="https://www.sbs.co.kr/ko/live" rel="noopener">
+        <div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span>
+      </a>
+      <a class="ch" href="https://www.ebs.co.kr/onair?channelCodeString=tv" rel="noopener">
+        <div><div class="name">EBS 1</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span>
+      </a>
+      <a class="ch" href="https://www.ebs.co.kr/onair?channelCodeString=tv2" rel="noopener">
+        <div><div class="name">EBS 2</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span>
+      </a>
+    </section>
+
+    <div class="notice">
+      ※ 방송사 정책·프로그램 저작권·연령 제한에 따라 로그인 또는 일부 방송의 온에어 재생 제한이 있을 수 있습니다.
+      영상 스트림 주소를 추출하거나 우회하지 않고 방송사 공식 페이지를 연결합니다.
+    </div>
+  </main>
+
+<script>
+let deferredPrompt = null;
+const installBtn = document.getElementById('installBtn');
+const iosGuide = document.getElementById('iosGuide');
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+if (isStandalone) installBtn.style.display = 'none';
+
+if (isIOS && !isStandalone) {
+  iosGuide.style.display = 'block';
+  installBtn.textContent = '🍎 아이폰 설치 방법 보기';
+  installBtn.addEventListener('click', () => iosGuide.scrollIntoView({behavior:'smooth', block:'center'}));
+} else {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+  });
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    } else {
+      alert('Chrome 또는 Samsung Internet 메뉴에서 “홈 화면에 추가/앱 설치”를 선택하세요.');
+    }
+  });
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
