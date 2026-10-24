@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
+  <meta name="theme-color" content="#0e1116">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="컴판다 온에어">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>컴판다 ON AIR 시청</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0e1116;--panel:#141a22;--card:#171c24;--line:#2b3441;--txt:#f5f7fa;--muted:#98a5b4;--accent:#ff4255;--safe-t:env(safe-area-inset-top,0px);--safe-r:env(safe-area-inset-right,0px);--safe-b:env(safe-area-inset-bottom,0px);--safe-l:env(safe-area-inset-left,0px)}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;overflow:hidden}
+    body{padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l)}
+    button,a{touch-action:manipulation;font:inherit}
+    .app{height:100%;display:grid;grid-template-rows:auto auto auto minmax(0,1fr);background:var(--bg)}
+    .topbar{display:flex;align-items:center;gap:10px;padding:10px 12px 8px;border-bottom:1px solid var(--line);background:rgba(14,17,22,.97)}
+    .back{width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:#171d25;color:#fff;font-size:21px;display:grid;place-items:center;text-decoration:none;flex:0 0 auto}
+    .titles{min-width:0;flex:1}.title{font-size:17px;font-weight:900;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .external{flex:0 0 auto;text-decoration:none;color:#fff;background:#202936;border:1px solid var(--line);border-radius:12px;padding:10px 11px;font-size:12px;font-weight:850;white-space:nowrap}
+    .channels{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 10px 9px;background:var(--bg);border-bottom:1px solid var(--line);overscroll-behavior-x:contain}.channels::-webkit-scrollbar{display:none}
+    .channel{flex:0 0 auto;min-width:69px;height:43px;border:1px solid var(--line);border-radius:14px;background:#171e27;color:#e8edf3;font-size:13px;font-weight:900;padding:0 13px;position:relative}.channel.active{background:#0a70ef;border-color:#3696ff;box-shadow:0 0 0 2px rgba(54,150,255,.16) inset}.channel.active:after{content:"";position:absolute;left:50%;bottom:5px;width:5px;height:5px;border-radius:50%;background:#ff4055;transform:translateX(-50%)}
+    .helper{display:flex;align-items:center;gap:9px;padding:8px 12px;background:#121820;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}.helper b{color:#fff}.bolt{font-size:17px;color:#4ea2ff}.fallback{margin-left:auto;border:0;background:none;color:#9fc8ff;text-decoration:underline;font-size:11px;padding:5px 0;white-space:nowrap}
+    .frame-wrap{position:relative;min-height:0;background:#080a0d}.frame-wrap iframe{width:100%;height:100%;border:0;background:white;display:block}.loading{position:absolute;inset:0;display:grid;place-items:center;background:#0d1117;color:var(--muted);font-size:13px;z-index:2;pointer-events:none}.loading.hide{display:none}
+    .blocked{position:absolute;left:12px;right:12px;bottom:12px;padding:11px 12px;border-radius:13px;background:rgba(20,26,34,.94);border:1px solid var(--line);display:flex;align-items:center;gap:9px;z-index:3}.blocked span{font-size:11px;color:#b6c0cc;line-height:1.35;flex:1}.blocked a{color:#fff;background:#253041;border:1px solid #39485e;border-radius:10px;padding:8px 10px;text-decoration:none;font-size:11px;font-weight:850;white-space:nowrap}
+    @media(min-width:700px){.topbar{padding:12px 18px}.channels{padding-left:18px;padding-right:18px}.helper{padding-left:18px;padding-right:18px}.channel{min-width:86px}.title{font-size:19px}.blocked{left:18px;right:18px}}
+    @media(orientation:landscape) and (max-height:560px){.topbar{padding-top:6px;padding-bottom:6px}.back{width:36px;height:36px}.external{padding:8px 10px}.channels{padding-top:6px;padding-bottom:6px}.channel{height:36px;border-radius:11px}.helper{padding-top:5px;padding-bottom:5px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="./index.html" aria-label="홈으로">‹</a>
+      <div class="titles"><div id="title" class="title">KBS 1TV 시청 중</div><div id="status" class="status">앱 안에서 다른 방송사로 바로 전환할 수 있습니다.</div></div>
+      <a id="external" class="external" href="#" target="compandaOfficialLive" rel="noopener">공식 페이지 ↗</a>
+    </header>
+
+    <nav id="channels" class="channels" aria-label="채널 전환">
+      <button class="channel" data-id="kbs1">KBS1</button>
+      <button class="channel" data-id="kbs2">KBS2</button>
+      <button class="channel" data-id="mbc">MBC</button>
+      <button class="channel" data-id="sbs">SBS</button>
+      <button class="channel" data-id="ebs1">EBS1</button>
+      <button class="channel" data-id="ebs2">EBS2</button>
+    </nav>
+
+    <div class="helper"><span class="bolt">⚡</span><span><b>앱 안에서 바로 채널 전환</b> · 위 채널을 누르면 즉시 변경합니다.</span><button id="homeBtn" class="fallback" type="button">채널 목록</button></div>
+
+    <section class="frame-wrap">
+      <div id="loading" class="loading">공식 온에어 페이지 불러오는 중…</div>
+      <iframe id="viewer" title="방송사 공식 온에어" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div class="blocked"><span>방송사 보안정책으로 내부 화면이 안 보이면 오른쪽 버튼으로 공식 온에어를 여세요. 컴판다 ON AIR는 그대로 유지됩니다.</span><a id="blockedExternal" href="#" target="compandaOfficialLive" rel="noopener">공식 온에어 ↗</a></div>
+    </section>
+  </main>
+<script>
+const CHANNELS={
+  kbs1:{name:'KBS 1TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList'},
+  kbs2:{name:'KBS 2TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList'},
+  mbc:{name:'MBC',url:'https://onair.imbc.com/'},
+  sbs:{name:'SBS',url:'https://www.sbs.co.kr/ko/live'},
+  ebs1:{name:'EBS 1',url:'https://www.ebs.co.kr/onair?channelCodeString=tv'},
+  ebs2:{name:'EBS 2',url:'https://www.ebs.co.kr/onair?channelCodeString=tv2'}
+};
+const params=new URLSearchParams(location.search);
+const viewer=document.getElementById('viewer');
+const loading=document.getElementById('loading');
+const title=document.getElementById('title');
+const external=document.getElementById('external');
+const blockedExternal=document.getElementById('blockedExternal');
+const buttons=[...document.querySelectorAll('.channel')];
+
+function selectChannel(id,push=true){
+  if(!CHANNELS[id]) id='kbs1';
+  const ch=CHANNELS[id];
+  buttons.forEach(b=>b.classList.toggle('active',b.dataset.id===id));
+  const active=buttons.find(b=>b.dataset.id===id); active?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  title.textContent=`${ch.name} 시청 중`;
+  document.title=`${ch.name} · 컴판다 ON AIR`;
+  external.href=ch.url; blockedExternal.href=ch.url;
+  loading.classList.remove('hide');
+  viewer.src=ch.url;
+  try{localStorage.setItem('companda-last-channel',id)}catch(e){}
+  if(push){const q=new URLSearchParams(location.search);q.set('ch',id);history.replaceState(null,'',`${location.pathname}?${q.toString()}`)}
+}
+viewer.addEventListener('load',()=>{setTimeout(()=>loading.classList.add('hide'),250)});
+buttons.forEach(b=>b.addEventListener('click',()=>selectChannel(b.dataset.id)));
+document.getElementById('homeBtn').addEventListener('click',()=>location.href='./index.html');
+let initial=params.get('ch');
+if(!CHANNELS[initial]){try{initial=localStorage.getItem('companda-last-channel')}catch(e){}}
+selectChannel(CHANNELS[initial]?initial:'kbs1',false);
+if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
