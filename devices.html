@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0e1116">
+  <title>컴판다 모바일 Device Lab</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0e1116;--card:#171c24;--line:#2b3441;--txt:#f5f7fa;--muted:#9da8b6;--accent:#e53935}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
+    body{min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+    button,a{touch-action:manipulation}
+    .page{max-width:1220px;margin:auto;padding:18px 14px 34px}
+    .head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+    h1{font-size:clamp(21px,5vw,31px);margin:0 0 6px;letter-spacing:-.04em}
+    .lead{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    .back{flex:0 0 auto;text-decoration:none;color:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:#1c232d;font-weight:800;font-size:12px}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+    .preset,.rotate{border:1px solid var(--line);background:#181f28;color:#dfe5ec;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:800}
+    .preset.active{background:#fff;color:#0e1116;border-color:#fff}
+    .rotate{margin-left:auto;background:#272f3a;color:#fff}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin:8px 0 12px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:5px 8px;background:#141a22}
+    .stage{background:#11161d;border:1px solid var(--line);border-radius:20px;padding:18px;overflow:auto;min-height:420px;display:flex;justify-content:center;align-items:flex-start}
+    .device-shell{position:relative;flex:0 0 auto;background:#050607;border:8px solid #272c33;border-radius:34px;box-shadow:0 18px 50px rgba(0,0,0,.38);overflow:hidden;transform-origin:top center}
+    .device-shell:before{content:"";position:absolute;z-index:3;top:7px;left:50%;transform:translateX(-50%);width:28%;max-width:100px;height:7px;border-radius:999px;background:#0b0d10;opacity:.95;pointer-events:none}
+    iframe{border:0;display:block;background:#0e1116;width:100%;height:100%}
+    .compare-title{font-size:18px;margin:24px 0 10px}
+    .compare{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .mini{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:11px;min-width:0}
+    .mini-name{font-size:13px;font-weight:900;margin-bottom:3px}
+    .mini-size{font-size:10px;color:var(--muted);margin-bottom:9px}
+    .thumb{height:310px;border-radius:12px;background:#090b0f;overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+    .thumb-inner{transform-origin:top center;flex:0 0 auto}
+    .thumb iframe{pointer-events:none}
+    .note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:14px}
+    @media(max-width:980px){.compare{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.page{padding:12px 10px 26px}.head{align-items:center}.back{padding:8px 9px}.toolbar{gap:6px}.preset,.rotate{padding:8px 10px}.rotate{margin-left:0}.stage{padding:10px;min-height:360px}.compare{grid-template-columns:1fr 1fr;gap:8px}.mini{padding:8px}.thumb{height:240px}}
+    @media(max-width:350px){.compare{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <div class="head">
+    <div>
+      <h1>모바일 Device Lab</h1>
+      <p class="lead">갤럭시·아이폰·폴더블 대표 CSS 뷰포트에서 ON AIR 화면을 비교 테스트합니다.</p>
+    </div>
+    <a class="back" href="./">← ON AIR</a>
+  </div>
+
+  <div class="toolbar" id="toolbar"></div>
+  <div class="meta"><span class="tag" id="deviceName"></span><span class="tag" id="deviceSize"></span><span class="tag" id="deviceMode"></span></div>
+
+  <section class="stage" id="stage" aria-label="선택 기기 미리보기">
+    <div class="device-shell" id="shell"><iframe id="preview" src="./index.html?preview=1" title="기기별 ON AIR 미리보기"></iframe></div>
+  </section>
+
+  <h2 class="compare-title">기종별 한눈에 비교</h2>
+  <section class="compare" id="compare"></section>
+  <p class="note">※ 아래 값은 반응형 UI 검사용 대표 CSS 뷰포트입니다. 실제 기기의 물리 픽셀 수나 브라우저 주소창 높이와는 다를 수 있습니다. 폴더블은 접힘/펼침 상태를 별도 프로필로 테스트합니다.</p>
+</main>
+<script>
+const devices = [
+  {id:'galaxy-s',name:'Galaxy S 계열',w:360,h:800,type:'Android 일반'},
+  {id:'galaxy-ultra',name:'Galaxy Ultra',w:412,h:915,type:'Android 대화면'},
+  {id:'z-flip',name:'Galaxy Z Flip',w:360,h:748,type:'폴더블 세로'},
+  {id:'z-fold-cover',name:'Z Fold 커버',w:344,h:882,type:'폴더블 접힘'},
+  {id:'z-fold-open',name:'Z Fold 펼침',w:768,h:984,type:'폴더블 펼침'},
+  {id:'iphone-se',name:'iPhone SE급',w:375,h:667,type:'iOS 소형'},
+  {id:'iphone-standard',name:'iPhone 일반/Pro',w:393,h:852,type:'iOS 일반'},
+  {id:'iphone-max',name:'iPhone Plus/Max',w:430,h:932,type:'iOS 대화면'}
+];
+let current = devices[0];
+let rotated = false;
+const toolbar = document.getElementById('toolbar');
+const shell = document.getElementById('shell');
+const preview = document.getElementById('preview');
+const stage = document.getElementById('stage');
+const nameEl = document.getElementById('deviceName');
+const sizeEl = document.getElementById('deviceSize');
+const modeEl = document.getElementById('deviceMode');
+
+for (const d of devices){
+  const b=document.createElement('button');
+  b.className='preset';b.type='button';b.textContent=d.name;b.dataset.id=d.id;
+  b.addEventListener('click',()=>{current=d;rotated=false;render();});
+  toolbar.appendChild(b);
+}
+const rotate=document.createElement('button');
+rotate.className='rotate';rotate.type='button';rotate.textContent='↻ 세로/가로 전환';
+rotate.addEventListener('click',()=>{rotated=!rotated;render();});
+toolbar.appendChild(rotate);
+
+function fitScale(w,h){
+  const maxW=Math.max(260,Math.min(880,stage.clientWidth-36));
+  const maxH=Math.max(350,Math.min(760,window.innerHeight*0.72));
+  return Math.min(1,maxW/(w+16),maxH/(h+16));
+}
+function render(){
+  const w=rotated?current.h:current.w;
+  const h=rotated?current.w:current.h;
+  shell.style.width=w+'px';shell.style.height=h+'px';
+  const scale=fitScale(w,h);
+  shell.style.transform=`scale(${scale})`;
+  stage.style.height=Math.ceil((h+16)*scale+36)+'px';
+  nameEl.textContent=current.name;
+  sizeEl.textContent=`${w} × ${h} CSS px`;
+  modeEl.textContent=(rotated?'가로 · ':'세로 · ')+current.type;
+  document.querySelectorAll('.preset').forEach(x=>x.classList.toggle('active',x.dataset.id===current.id));
+  preview.contentWindow?.postMessage({type:'device-lab-resize',width:w,height:h},'*');
+}
+window.addEventListener('resize',render,{passive:true});
+
+const compare=document.getElementById('compare');
+for (const d of devices){
+  const card=document.createElement('article');card.className='mini';
+  const title=document.createElement('div');title.className='mini-name';title.textContent=d.name;
+  const size=document.createElement('div');size.className='mini-size';size.textContent=`${d.w} × ${d.h} CSS px · ${d.type}`;
+  const thumb=document.createElement('div');thumb.className='thumb';
+  const inner=document.createElement('div');inner.className='thumb-inner';inner.style.width=d.w+'px';inner.style.height=d.h+'px';
+  const frame=document.createElement('iframe');frame.src='./index.html?preview=1';frame.title=d.name+' 미리보기';frame.tabIndex=-1;frame.style.width=d.w+'px';frame.style.height=d.h+'px';
+  inner.appendChild(frame);thumb.appendChild(inner);card.append(title,size,thumb);compare.appendChild(card);
+  requestAnimationFrame(()=>{
+    const scale=Math.min((thumb.clientWidth-10)/d.w,(thumb.clientHeight-8)/d.h);
+    inner.style.transform=`scale(${Math.max(.18,scale)})`;
+  });
+}
+render();
+</script>
+</body>
+</html>
