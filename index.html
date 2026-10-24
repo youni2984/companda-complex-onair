@@ -10,115 +10,53 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="apple-touch-icon" href="./icon-180.png">
   <link rel="manifest" href="./manifest.webmanifest">
-  <title>컴판다 온에어</title>
+  <title>컴판다 지상파 ON AIR</title>
   <style>
-    :root{
-      color-scheme:dark;
-      --bg:#0e1116; --card:#171c24; --line:#29313d;
-      --txt:#f5f7fa; --muted:#9da8b6; --accent:#e53935;
-      --safe-t:env(safe-area-inset-top,0px);
-      --safe-r:env(safe-area-inset-right,0px);
-      --safe-b:env(safe-area-inset-bottom,0px);
-      --safe-l:env(safe-area-inset-left,0px);
-      --page-x:clamp(10px,3.6vw,22px);
-      --gap:clamp(8px,2.6vw,14px);
-      --radius:clamp(14px,4vw,20px);
-    }
+    :root{color-scheme:dark;--bg:#0e1116;--card:#171c24;--line:#29313d;--txt:#f5f7fa;--muted:#9da8b6;--accent:#e53935;--blue:#147cff;--safe-t:env(safe-area-inset-top,0px);--safe-r:env(safe-area-inset-right,0px);--safe-b:env(safe-area-inset-bottom,0px);--safe-l:env(safe-area-inset-left,0px);--page-x:clamp(10px,3.6vw,22px);--gap:clamp(8px,2.6vw,14px);--radius:clamp(14px,4vw,20px)}
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html{background:var(--bg);text-size-adjust:100%;-webkit-text-size-adjust:100%}
-    html,body{margin:0;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
-    body{min-width:280px;min-height:100vh;min-height:100svh;min-height:100dvh;background:var(--bg);padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);overscroll-behavior-y:none}
-    button,a{touch-action:manipulation}
-    .wrap{width:100%;max-width:980px;margin:0 auto;padding:clamp(12px,3vh,22px) var(--page-x) max(18px,var(--safe-b))}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 clamp(9px,2vh,15px)}
-    h1{font-size:clamp(19px,5.8vw,27px);line-height:1.15;letter-spacing:-.045em;margin:0;white-space:nowrap}
-    .live{flex:0 0 auto;font-size:clamp(10px,2.8vw,12px);font-weight:900;padding:6px 9px;border-radius:999px;background:var(--accent)}
-    .desc{color:var(--muted);font-size:clamp(12px,3.4vw,14px);line-height:1.48;margin:0 0 clamp(10px,2vh,14px)}
-    .install{width:100%;min-height:48px;border:1px solid var(--line);background:#202734;color:white;border-radius:14px;padding:11px 14px;font-size:clamp(14px,4vw,16px);font-weight:800;margin-bottom:clamp(10px,2vh,15px)}
-    .ios{display:none;background:#141922;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#d8dee8;font-size:13px;line-height:1.5;margin-bottom:12px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
-    .ch{display:flex;flex-direction:column;justify-content:space-between;min-width:0;min-height:clamp(94px,15vh,126px);padding:clamp(12px,3.5vw,17px);border-radius:var(--radius);background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);transition:.15s transform,.15s border-color,.15s background}
-    .ch:active{transform:scale(.975);background:#1b222c}
-    .ch:focus-visible,.install:focus-visible,.lab-link:focus-visible{outline:2px solid #fff;outline-offset:2px}
-    .name{font-size:clamp(16px,5vw,22px);font-weight:900;line-height:1.08;letter-spacing:-.035em;overflow-wrap:anywhere}
-    .sub{font-size:clamp(10px,3vw,13px);line-height:1.3;color:var(--muted);margin-top:5px}
-    .go{align-self:flex-end;margin-top:12px;font-size:clamp(10px,2.8vw,13px);font-weight:800;color:#fff;background:#252d39;border-radius:999px;padding:6px 8px;white-space:nowrap}
-    .notice{margin-top:clamp(12px,2.5vh,17px);border-top:1px solid var(--line);padding-top:11px;color:var(--muted);font-size:clamp(10px,2.8vw,12px);line-height:1.5}
-    .lab-link{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;min-height:44px;border:1px solid var(--line);background:#151b23;color:#dfe5ec;border-radius:13px;text-decoration:none;font-size:13px;font-weight:850}
-    html[data-preview="1"] .install,html[data-preview="1"] .ios,html[data-preview="1"] .notice,html[data-preview="1"] .lab-link{display:none!important}
-    html[data-preview="1"] .wrap{padding-bottom:10px}
-
-    @media (max-width:359px){
-      :root{--page-x:9px;--gap:7px}.wrap{padding-top:10px}h1{font-size:18px}.desc{font-size:11px;line-height:1.4}.ch{min-height:90px;padding:10px;border-radius:13px}.name{font-size:15px}.sub{font-size:9.5px}.go{margin-top:8px;padding:5px 7px}
-    }
-    @media (max-height:700px) and (orientation:portrait){
-      .wrap{padding-top:9px;padding-bottom:12px}.top{margin-bottom:7px}.desc{line-height:1.35;margin-bottom:8px}.install{min-height:44px;margin-bottom:8px;padding:8px 12px}.ch{min-height:84px;padding-top:10px;padding-bottom:10px}.go{margin-top:7px}.notice{margin-top:9px;padding-top:8px;line-height:1.35}
-    }
-    @media (min-width:431px) and (max-width:600px){.grid{gap:12px}.ch{min-height:118px}}
-    @media (min-width:601px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wrap{padding-left:22px;padding-right:22px}.ch{min-height:138px}h1{font-size:28px}}
-    @media (orientation:landscape) and (max-height:600px){
-      .wrap{max-width:1100px;padding-top:8px;padding-bottom:8px}.top{margin-bottom:6px}h1{font-size:20px}.desc{font-size:11px;line-height:1.3;margin-bottom:6px}.install{min-height:40px;padding:7px 12px;margin-bottom:7px;font-size:13px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ch{min-height:82px;padding:10px 12px;border-radius:13px}.name{font-size:16px}.sub{font-size:10px}.go{font-size:10px;margin-top:6px;padding:5px 7px}.notice{margin-top:7px;padding-top:6px;font-size:9px;line-height:1.3}
-    }
-    @media (horizontal-viewport-segments:2){.wrap{max-width:none;padding-left:max(var(--page-x),var(--safe-l));padding-right:max(var(--page-x),var(--safe-r))}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    html{background:var(--bg);-webkit-text-size-adjust:100%;text-size-adjust:100%}html,body{margin:0;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}body{min-width:280px;min-height:100vh;min-height:100dvh;background:var(--bg);padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l)}button,a{touch-action:manipulation}
+    .wrap{width:100%;max-width:980px;margin:0 auto;padding:clamp(12px,3vh,22px) var(--page-x) max(18px,var(--safe-b))}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}h1{font-size:clamp(19px,5.8vw,27px);line-height:1.15;letter-spacing:-.045em;margin:0;white-space:nowrap}.live{flex:0 0 auto;font-size:11px;font-weight:900;padding:6px 9px;border-radius:999px;background:var(--accent)}.desc{color:var(--muted);font-size:clamp(12px,3.4vw,14px);line-height:1.48;margin:0 0 12px}
+    .switch-info{display:flex;align-items:center;gap:10px;border:1px solid #27496f;background:#111c29;border-radius:15px;padding:11px 12px;margin-bottom:12px}.bolt{font-size:20px;color:#4da1ff}.switch-copy{min-width:0;flex:1}.switch-copy b{display:block;font-size:13px;margin-bottom:2px}.switch-copy span{display:block;color:#9cb2c9;font-size:11px;line-height:1.4}.resume{display:none;flex:0 0 auto;color:#fff;background:#156fe8;border:0;border-radius:11px;padding:9px 10px;text-decoration:none;font-size:11px;font-weight:900;white-space:nowrap}
+    .install{width:100%;min-height:46px;border:1px solid var(--line);background:#202734;color:#fff;border-radius:14px;padding:10px 14px;font-size:14px;font-weight:850;margin-bottom:12px}.ios{display:none;background:#141922;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#d8dee8;font-size:13px;line-height:1.5;margin-bottom:12px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}.ch{display:flex;flex-direction:column;justify-content:space-between;min-width:0;min-height:clamp(94px,15vh,126px);padding:clamp(12px,3.5vw,17px);border-radius:var(--radius);background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);transition:.15s transform,.15s background,.15s border-color}.ch:active{transform:scale(.975);background:#1b222c}.ch:focus-visible,.install:focus-visible,.lab-link:focus-visible,.resume:focus-visible{outline:2px solid #fff;outline-offset:2px}.name{font-size:clamp(16px,5vw,22px);font-weight:900;line-height:1.08;letter-spacing:-.035em}.sub{font-size:clamp(10px,3vw,13px);line-height:1.3;color:var(--muted);margin-top:5px}.go{align-self:flex-end;margin-top:12px;font-size:clamp(10px,2.8vw,13px);font-weight:850;color:#fff;background:#252d39;border-radius:999px;padding:6px 8px;white-space:nowrap}.notice{margin-top:14px;border-top:1px solid var(--line);padding-top:11px;color:var(--muted);font-size:11px;line-height:1.5}.lab-link{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;min-height:44px;border:1px solid var(--line);background:#151b23;color:#dfe5ec;border-radius:13px;text-decoration:none;font-size:12px;font-weight:850}
+    html[data-preview="1"] .install,html[data-preview="1"] .ios,html[data-preview="1"] .notice,html[data-preview="1"] .lab-link,html[data-preview="1"] .switch-info{display:none!important}
+    @media(max-width:359px){:root{--page-x:9px;--gap:7px}.wrap{padding-top:10px}h1{font-size:18px}.desc{font-size:11px}.ch{min-height:90px;padding:10px;border-radius:13px}.name{font-size:15px}.sub{font-size:9.5px}.go{margin-top:8px;padding:5px 7px}}
+    @media(max-height:700px) and (orientation:portrait){.wrap{padding-top:9px;padding-bottom:12px}.top{margin-bottom:7px}.desc{line-height:1.35;margin-bottom:8px}.switch-info{padding:8px 10px;margin-bottom:8px}.install{min-height:42px;margin-bottom:8px;padding:7px 12px}.ch{min-height:84px;padding-top:10px;padding-bottom:10px}.go{margin-top:7px}}
+    @media(min-width:431px) and (max-width:600px){.grid{gap:12px}.ch{min-height:118px}}
+    @media(min-width:601px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wrap{padding-left:22px;padding-right:22px}.ch{min-height:138px}h1{font-size:28px}}
+    @media(orientation:landscape) and (max-height:600px){.wrap{max-width:1100px;padding-top:8px;padding-bottom:8px}.top{margin-bottom:5px}h1{font-size:20px}.desc{font-size:11px;line-height:1.3;margin-bottom:6px}.switch-info{padding:6px 10px;margin-bottom:6px}.install{min-height:38px;padding:6px 12px;margin-bottom:6px;font-size:12px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ch{min-height:80px;padding:9px 11px;border-radius:13px}.name{font-size:16px}.sub{font-size:10px}.go{font-size:10px;margin-top:6px;padding:5px 7px}.notice{margin-top:7px;padding-top:6px;font-size:9px}.lab-link{min-height:36px;margin-top:7px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
   <main class="wrap">
     <div class="top"><h1>컴판다 지상파 ON AIR</h1><span class="live">LIVE</span></div>
-    <p class="desc">갤럭시·아이폰 홈 화면에 설치해서 KBS·MBC·SBS·EBS 공식 온에어로 바로 이동합니다.</p>
+    <p class="desc">한 번 실행한 뒤 KBS·MBC·SBS·EBS를 컴판다 화면에서 바로 전환합니다.</p>
+
+    <div class="switch-info"><span class="bolt">⚡</span><div class="switch-copy"><b>방송사 바꿀 때 다시 실행할 필요 없음</b><span>시청 화면 위 채널바에서 KBS1 · KBS2 · MBC · SBS · EBS1 · EBS2를 바로 변경합니다.</span></div><a id="resume" class="resume" href="./viewer.html">이어보기</a></div>
+
     <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
     <div id="iosGuide" class="ios">아이폰에서는 Safari 하단의 <b>공유</b> 버튼 → <b>홈 화면에 추가</b>를 선택하세요.</div>
 
     <section class="grid" aria-label="지상파 온에어">
-      <a class="ch" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" rel="noopener"><div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" rel="noopener"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" href="https://onair.imbc.com/" rel="noopener"><div><div class="name">MBC</div><div class="sub">iMBC 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" href="https://www.sbs.co.kr/ko/live" rel="noopener"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" href="https://www.ebs.co.kr/onair?channelCodeString=tv" rel="noopener"><div><div class="name">EBS 1</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" href="https://www.ebs.co.kr/onair?channelCodeString=tv2" rel="noopener"><div><div class="name">EBS 2</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
+      <a class="ch" href="./viewer.html?ch=kbs1"><div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">시청하기 ›</span></a>
+      <a class="ch" href="./viewer.html?ch=kbs2"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">시청하기 ›</span></a>
+      <a class="ch" href="./viewer.html?ch=mbc"><div><div class="name">MBC</div><div class="sub">iMBC 공식 온에어</div></div><span class="go">시청하기 ›</span></a>
+      <a class="ch" href="./viewer.html?ch=sbs"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">시청하기 ›</span></a>
+      <a class="ch" href="./viewer.html?ch=ebs1"><div><div class="name">EBS 1</div><div class="sub">EBS 공식 온에어</div></div><span class="go">시청하기 ›</span></a>
+      <a class="ch" href="./viewer.html?ch=ebs2"><div><div class="name">EBS 2</div><div class="sub">EBS 공식 온에어</div></div><span class="go">시청하기 ›</span></a>
     </section>
 
-    <div class="notice">※ 방송사 정책·프로그램 저작권·연령 제한에 따라 로그인 또는 일부 방송의 온에어 재생 제한이 있을 수 있습니다. 영상 스트림 주소를 추출하거나 우회하지 않고 방송사 공식 페이지를 연결합니다.</div>
+    <div class="notice">※ 방송사 정책에 따라 공식 페이지가 외부 프레임 표시를 제한할 수 있습니다. 그런 경우 시청 화면의 <b>공식 페이지</b> 버튼으로 열 수 있으며, 스트림 주소를 추출하거나 재배포하지 않습니다.</div>
     <a class="lab-link" href="./devices.html">📱 기종별 화면 테스트 · Device Lab</a>
   </main>
-
 <script>
-const params = new URLSearchParams(location.search);
-if (params.get('preview') === '1') document.documentElement.dataset.preview = '1';
-let deferredPrompt = null;
-const installBtn = document.getElementById('installBtn');
-const iosGuide = document.getElementById('iosGuide');
-const ua = navigator.userAgent || '';
-const isIOS = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-const isSamsung = /SamsungBrowser|SM-/i.test(ua);
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-
-function applyViewportClass(){
-  const w = Math.round(window.visualViewport?.width || window.innerWidth);
-  const h = Math.round(window.visualViewport?.height || window.innerHeight);
-  const root = document.documentElement;
-  root.dataset.viewport = w <= 360 ? 'compact' : w <= 430 ? 'standard' : w <= 600 ? 'large-phone' : 'fold-open';
-  root.dataset.orientation = w > h ? 'landscape' : 'portrait';
-}
-applyViewportClass();
-window.addEventListener('resize', applyViewportClass, {passive:true});
-window.visualViewport?.addEventListener('resize', applyViewportClass, {passive:true});
-
-if (isStandalone || params.get('preview') === '1') installBtn.style.display = 'none';
-if (isIOS && !isStandalone && params.get('preview') !== '1') {
-  iosGuide.style.display = 'block';
-  installBtn.textContent = '🍎 아이폰 홈 화면에 추가';
-  installBtn.addEventListener('click', () => iosGuide.scrollIntoView({behavior:'smooth', block:'center'}));
-} else if (params.get('preview') !== '1') {
-  window.addEventListener('beforeinstallprompt', (e) => {e.preventDefault();deferredPrompt = e;installBtn.style.display = 'block';});
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt = null;}
-    else if (isSamsung) alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');
-    else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.');
-  });
-}
-if ('serviceWorker' in navigator && params.get('preview') !== '1') window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+const params=new URLSearchParams(location.search);if(params.get('preview')==='1')document.documentElement.dataset.preview='1';
+let deferredPrompt=null;const installBtn=document.getElementById('installBtn');const iosGuide=document.getElementById('iosGuide');const resume=document.getElementById('resume');const ua=navigator.userAgent||'';const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const isSamsung=/SamsungBrowser|SM-/i.test(ua);const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+try{const last=localStorage.getItem('companda-last-channel');if(last){resume.href=`./viewer.html?ch=${encodeURIComponent(last)}`;resume.style.display='block'}}catch(e){}
+if(isStandalone||params.get('preview')==='1')installBtn.style.display='none';
+if(isIOS&&!isStandalone&&params.get('preview')!=='1'){iosGuide.style.display='block';installBtn.textContent='🍎 아이폰 홈 화면에 추가';installBtn.addEventListener('click',()=>iosGuide.scrollIntoView({behavior:'smooth',block:'center'}))}else if(params.get('preview')!=='1'){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block'});installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else if(isSamsung)alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.')})}
+if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
