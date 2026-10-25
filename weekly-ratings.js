@@ -5,7 +5,7 @@
   const source = 'https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00';
   // Exact program matches only: never open a different show's replay.
   const kbsReplays = {
-    '엄마가미쳤어요': 'https://www.kbs.co.kr/index.html?broadcast_complete_yn=N&local_station_code=00&program_code=T2026-0197&program_id=PS-2026184384-01-000&section_code=03&section_id=28461&sname=vod&source=episode&stype=vod',
+    '엄마가미쳤어요': 'https://program.kbs.co.kr/1tv/drama/mompossible/pc/index.html',
     '사랑이온다': 'https://vod.kbs.co.kr/m/index.html?broadcast_complete_yn=&local_station_code=00&program_code=T2026-0039&program_id=PS-2026183638-01-000&section_code=03&sname=vod&source=episode&stype=vod'
   };
   function replayFor(winners, channelId) {
