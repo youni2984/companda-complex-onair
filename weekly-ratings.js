@@ -42,7 +42,7 @@
       const stale = (parseDate(kstToday) - end) / 86400000 > 14;
       status.textContent = `${data.periodStart.replaceAll('-', '.')} ~ ${data.periodEnd.slice(5).replace('-', '.')} · 전국 가구${stale ? ' · 갱신 지연' : ' · 최신 확인'}`;
       list.replaceChildren();
-      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', sbs:'SBS', mbcgn:'MBC경남', knn:'KNN 부산'};
+      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', mbc:'MBC', sbs:'SBS'};
       for (const [channelId, channelLabel] of Object.entries(labels)) {
         const winners = data.channelWinners.filter(w => w.channelId === channelId);
         if (winners.some(w => w.rating !== winners[0].rating)) throw Error('Invalid joint winner');
@@ -70,14 +70,7 @@
           }
           rating.textContent = winners[0].rating.toFixed(1) + '%';
         } else {
-          title.textContent = ['mbcgn','knn'].includes(channelId) ? '주간 1위 확인 불가 · 지역 공식 자료 미확보' : '공개 TOP 20 미포함 · 1위 확인 불가';
-          if (['mbcgn','knn'].includes(channelId)) {
-            const official = document.querySelector('.ch[data-channel="' + channelId + '"]')?.dataset.official;
-            if (official) {
-              const link = document.createElement('a'); link.href = official; link.target = '_blank'; link.rel = 'noopener';
-              link.textContent = ' 공식 방송 ↗'; link.className = 'weekly-source'; title.append(link);
-            }
-          }
+          title.textContent = '공개 TOP 20 미포함 · 1위 확인 불가';
           title.style.fontSize = '12px'; rating.textContent = '—';
         }
         row.append(label, title, rating); list.append(row);

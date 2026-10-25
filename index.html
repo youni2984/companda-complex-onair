@@ -180,8 +180,7 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
       <a class="ch" data-channel="kbs2" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" data-viewer="./viewer.html?ch=kbs2" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="ytn" data-direct="1" data-official="https://www.ytn.co.kr/_hd/hd_main.html" data-viewer="./viewer.html?ch=ytn" href="https://www.ytn.co.kr/_hd/hd_main.html" target="_blank" rel="noopener"><div><div class="name">YTN</div><div class="sub">24시간 뉴스 공식 생방송</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="sbs" data-official="https://www.sbs.co.kr/ko/live" data-viewer="./viewer.html?ch=sbs" href="https://www.sbs.co.kr/ko/live" target="_blank" rel="noopener"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="mbcgn" data-direct="1" data-official="https://mbcgn.kr/" data-viewer="./viewer.html?ch=mbcgn" href="https://mbcgn.kr/" target="_blank" rel="noopener"><div><div class="name">MBC경남</div><div class="sub">창원 · 공식 홈페이지</div></div><span class="go">창원방송 ↗</span></a>
-      <a class="ch" data-channel="knn" data-direct="1" data-official="https://www.knn.co.kr/onair/?channel=tv" data-viewer="./viewer.html?ch=knn" href="https://www.knn.co.kr/onair/?channel=tv" target="_blank" rel="noopener"><div><div class="name">KNN 부산</div><div class="sub">부산·경남 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
+      <a class="ch" data-channel="mbc" data-direct="1" data-official="https://onair.imbc.com/" data-viewer="./viewer.html?ch=mbc" href="https://onair.imbc.com/" target="_blank" rel="noopener"><div><div class="name">MBC</div><div class="sub">전국 MBC 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
     </section>
 
 
@@ -250,7 +249,7 @@ if(isStandalone||params.get('preview')==='1')installBtn.style.display='none';
 if(isIOS&&!isStandalone&&params.get('preview')!=='1'){installBtn.textContent='🍎 아이폰 홈 화면에 추가';installBtn.addEventListener('click',()=>iosGuide.scrollIntoView({behavior:'smooth',block:'center'}))}else if(params.get('preview')!=='1'){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block'});installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else if(isSamsung)alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.')})}
 if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
-<script src="./weekly-ratings.js?v=11" defer></script>
+<script src="./weekly-ratings.js?v=13" defer></script>
 
 <script>
 (() => {
