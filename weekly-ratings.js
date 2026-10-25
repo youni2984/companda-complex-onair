@@ -5,7 +5,7 @@
   const source = 'https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00';
   // Exact program matches only: never open a different show's replay.
   const kbsReplays = {
-    '엄마가미쳤어요': 'https://program.kbs.co.kr/1tv/drama/mompossible/pc/index.html',
+    '엄마가미쳤어요': 'https://vod.kbs.co.kr/index.html?source=episode&sname=vod&stype=vod&program_code=T2026-0197&program_id=PS-2026084265-01-000&broadcast_complete_yn=N&local_station_code=00&section_code=03',
     '사랑이온다': 'https://vod.kbs.co.kr/m/index.html?broadcast_complete_yn=&local_station_code=00&program_code=T2026-0039&program_id=PS-2026183638-01-000&section_code=03&sname=vod&source=episode&stype=vod'
   };
   function replayFor(winners, channelId) {
@@ -53,7 +53,7 @@
             title.href = official; title.target = '_blank'; title.rel = 'noopener';
             title.setAttribute('aria-label', winners.map(w => w.program).join(' · ') + ' · ' + channelLabel + (replay ? ' 공식 다시보기 열기' : ' 공식 온에어 열기'));
             title.title = replay ? 'KBS 공식 다시보기 · 회차를 선택해 시청하세요' : '방송사 공식 온에어';
-            if (replay) { const hint = document.createElement('span'); hint.className = 'replay-hint'; hint.textContent = ' 다시보기 ↗'; title.append(hint); }
+            if (replay) { const hint = document.createElement('span'); hint.className = 'replay-hint'; const fromFirst = replay.includes('program_id=PS-2026084265-01-000'); hint.textContent = fromFirst ? ' 1회부터 보기 ↗' : ' 다시보기 ↗'; if (fromFirst) { title.title = '엄마가 미쳤어요 · 1회부터 정주행 · 전체회차에서 다음 회차를 선택하세요'; title.setAttribute('aria-label', '엄마가 미쳤어요 · KBS 공식 1회부터 정주행'); } title.append(hint); }
             if (!stale) {
               const badge = document.createElement('span'); badge.className = 'new-badge'; badge.textContent = 'NEW';
               badge.title = '최신 확인 주간 순위 · 신작 방영 표시가 아닙니다';
