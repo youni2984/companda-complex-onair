@@ -1,0 +1,53 @@
+name: Weekly ratings and Pages
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: onair-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch published national weekly ratings
+        id: ratings
+        continue-on-error: true
+        run: python scripts/update_weekly_ratings.py
+      - name: Preserve last confirmed data on source failure
+        if: steps.ratings.outcome == 'failure'
+        run: echo '::warning::Nielsen unavailable or invalid. Retaining the dated last confirmed ranking.'
+      - name: Save confirmed ranking changes
+        if: steps.ratings.outcome == 'success'
+        run: |
+          if ! git diff --quiet -- data/weekly-ratings.json; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/weekly-ratings.json
+            git commit -m 'Update published weekly television ratings'
+            git push
+          fi
+      - name: Prepare static site
+        run: |
+          mkdir -p _site/data
+          cp *.html *.js *.png manifest.webmanifest .nojekyll _site/
+          cp data/weekly-ratings.json _site/data/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

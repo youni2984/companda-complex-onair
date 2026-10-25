@@ -1,5 +1,5 @@
-const CACHE='companda-onair-v6';
-const ASSETS=['./','./index.html','./viewer.html','./devices.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
+const CACHE='companda-onair-v7';
+const ASSETS=['./','./index.html','./weekly-ratings.js','./viewer.html','./devices.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -17,6 +17,11 @@ self.addEventListener('activate',event=>{
 self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
   if(url.origin!==self.location.origin)return;
+  // Rankings always use the published network snapshot; never an old cache.
+  if(url.pathname.endsWith('/data/weekly-ratings.json')){
+    event.respondWith(fetch(event.request,{cache:'no-store'}));
+    return;
+  }
   if(event.request.mode==='navigate'){
     event.respondWith(
       fetch(event.request,{cache:'no-store'})
@@ -34,3 +39,4 @@ self.addEventListener('fetch',event=>{
   }
   event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request)));
 });
+

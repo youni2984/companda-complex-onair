@@ -1,0 +1,15 @@
+{
+  "periodStart": "2026-10-12",
+  "periodEnd": "2026-10-18",
+  "scope": "전국 지상파 · 가구 시청률",
+  "sourceName": "닐슨코리아",
+  "sourceUrl": "https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00",
+  "winners": [
+    {
+      "channel": "SBS",
+      "channelId": "sbs",
+      "program": "SBS금토드라마(닥터X하얀마피아의시대)",
+      "rating": 16.8
+    }
+  ]
+}
