@@ -136,6 +136,18 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
 .weekly-note::before{content:'NEW: 최신 확인 순위 · 드라마는 1회부터 정주행';display:block;color:var(--muted);font-size:11px}
 @media(max-width:600px){.weekly-winner{padding:2px 0}.weekly-source{min-height:28px}}
 .replay-hint{display:inline;color:var(--gold);font-size:11px;white-space:nowrap;font-weight:500}
+
+.sbs-vod{margin:10px 0;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.sbs-vod summary{min-height:48px;padding:12px;font-size:var(--reading);font-weight:650;cursor:pointer}
+.sbs-vod summary>span{float:right;font-size:12px;color:var(--muted);font-weight:500}
+.sbs-vod-body{padding:0 12px 12px}.sbs-vod-note{font-size:12px;color:var(--muted);line-height:1.65;margin:6px 0 10px}
+.sbs-vod-filters{display:flex;gap:8px;flex-wrap:wrap}.sbs-vod-filters label{flex:1;min-width:100px;font-size:13px;color:var(--muted)}
+.sbs-vod-filters input,.sbs-vod-filters select{display:block;width:100%;min-height:44px;margin-top:4px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--txt);font:inherit;font-size:16px;padding:8px;box-sizing:border-box}
+.sbs-vod-list{max-height: min(50svh,420px);overflow-y:auto;overscroll-behavior:contain}
+.sbs-vod-item{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:10px 2px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--txt);font-size:calc(var(--reading)*.875);line-height:1.6}
+.sbs-vod-item[hidden]{display:none}.sbs-vod-label{flex:0 0 auto;font-size:11px;color:var(--gold)}
+.sbs-vod-all{display:flex;align-items:center;min-height:44px;color:var(--gold);font-size:13px}
+
 </style>
 <script>
 (() => {
@@ -172,6 +184,48 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
       <a class="ch" data-channel="knn" data-direct="1" data-official="https://www.knn.co.kr/onair/?channel=tv" data-viewer="./viewer.html?ch=knn" href="https://www.knn.co.kr/onair/?channel=tv" target="_blank" rel="noopener"><div><div class="name">KNN 부산</div><div class="sub">부산·경남 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
     </section>
 
+
+    <details class="sbs-vod" id="sbsFreeVod">
+      <summary>SBS 무료 VOD <span>작품 목록 보기 ▾</span></summary>
+      <div class="sbs-vod-body">
+        <p class="sbs-vod-note">SBS 공식 무료 목록에서 확인한 30개 작품 · 2026.10.26<br>작품 선택 → 공식 회차 목록. 무료 회차·로그인 여부는 SBS 안내를 확인하세요.</p>
+        <div class="sbs-vod-filters"><label>작품 검색<input id="sbsVodSearch" type="search" placeholder="제목 입력" autocomplete="off"></label><label>장르<select id="sbsVodGenre"><option value="all">전체</option><option value="drama">드라마</option><option value="enter">예능</option></select></label></div>
+        <p id="sbsVodCount" class="sbs-vod-note" role="status">30개 작품</p>
+        <div class="sbs-vod-list" role="region" aria-label="SBS 무료 VOD 작품" tabindex="0"><a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/drromantic3/vods/76448?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부 3"><span>낭만닥터 김사부 3</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sunpung/vods/57054?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="순풍산부인과"><span>순풍산부인과</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/period/vods/51118?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="야인시대"><span>야인시대</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/nonstop/vods/53915?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="웬만해선 그들을 막을 수 없다"><span>웬만해선 그들을 막을 수 없다</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/giant/vods/55971?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="자이언트"><span>자이언트</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sisterisalive/vods/51798?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="언니는 살아있다"><span>언니는 살아있다</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sweetheart/vods/52546?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="애인있어요"><span>애인있어요</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/right/vods/53858?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="똑바로 살아라"><span>똑바로 살아라</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/drromantic2/vods/63015?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부 2"><span>낭만닥터 김사부 2</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/doctorromantic/vods/51938?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부"><span>낭만닥터 김사부</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/wyws/vods/50566?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="당신이 잠든 사이에"><span>당신이 잠든 사이에</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/thefirstresponders/vods/75141?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="소방서 옆 경찰서"><span>소방서 옆 경찰서</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/women/vods/53875?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="여인천하"><span>여인천하</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/6dragons/vods/53124?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="육룡이 나르샤"><span>육룡이 나르샤</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/thejudgefromhell/vods/83958?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="지옥에서 온 판사"><span>지옥에서 온 판사</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/businessproposal/vods/70867?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="사내맞선"><span>사내맞선</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/thefirstresponders2/vods/77169?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="소방서 옆 경찰서 그리고 국과수"><span>소방서 옆 경찰서 그리고 국과수</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/flexxcop/vods/81375?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="재벌X형사"><span>재벌X형사</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/runningman/vods/55286?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="런닝맨"><span>런닝맨</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/kickagoal/vods/68129?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="골 때리는 그녀들"><span>골 때리는 그녀들</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/woori/vods/52018?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="미운 우리 새끼"><span>미운 우리 새끼</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/gayo/vods/54767?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="SBS 인기가요"><span>SBS 인기가요</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/dongsang2/vods/52006?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="동상이몽2_너는 내 운명"><span>동상이몽2_너는 내 운명</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/teum/vods/82255?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="틈만나면,"><span>틈만나면,</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/jungle/vods/50479?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="김병만의 정글의 법칙"><span>김병만의 정글의 법칙</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/theballad/vods/85663?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="우리들의 발라드"><span>우리들의 발라드</span><span class="sbs-vod-label">부분무료 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/starbubu/vods/54605?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="백년손님"><span>백년손님</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/youngfire/vods/53750?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="불타는 청춘"><span>불타는 청춘</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/fantastic2/vods/52077?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="판타스틱 듀오 2"><span>판타스틱 듀오 2</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
+<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/roommate/vods/53719?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="룸메이트"><span>룸메이트</span><span class="sbs-vod-label">무료 목록 ↗</span></a></div>
+        <p id="sbsVodEmpty" class="sbs-vod-note" hidden>검색 결과가 없습니다.</p>
+        <a class="sbs-vod-all" href="https://www.sbs.co.kr/tv/free?category=drama" target="_blank" rel="noopener">SBS 공식 전체 무료 목록 ↗</a>
+      </div>
+    </details>
+
     <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
       <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
       <p id="weeklyStatus" class="weekly-meta" role="status">공식 주간 시청률 확인 중…</p>
@@ -197,6 +251,22 @@ if(isIOS&&!isStandalone&&params.get('preview')!=='1'){installBtn.textContent='�
 if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 <script src="./weekly-ratings.js?v=11" defer></script>
+
+<script>
+(() => {
+  const search=document.getElementById('sbsVodSearch'), genre=document.getElementById('sbsVodGenre');
+  const items=[...document.querySelectorAll('.sbs-vod-item')];
+  const normalize=s=>s.replace(/\s+/g,'').toLocaleLowerCase('ko');
+  function filter(){
+    const q=normalize(search.value); let count=0;
+    items.forEach(a=>{const show=(genre.value==='all'||a.dataset.genre===genre.value)&&normalize(a.dataset.title).includes(q);a.hidden=!show;if(show)count++});
+    document.getElementById('sbsVodCount').textContent=count+'개 작품';
+    document.getElementById('sbsVodEmpty').hidden=count!==0;
+  }
+  search.addEventListener('input',filter);genre.addEventListener('change',filter);
+})();
+</script>
+
 </body>
 </html>
 
