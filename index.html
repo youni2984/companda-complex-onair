@@ -33,7 +33,7 @@
     @media(min-width:431px) and (max-width:600px){.grid{gap:12px}.ch{min-height:118px}}@media(min-width:601px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wrap{padding-left:22px;padding-right:22px}.ch{min-height:138px}h1{font-size:28px}}
     @media(orientation:landscape) and (max-height:600px){.wrap{max-width:1100px;padding-top:8px;padding-bottom:8px}.top{margin-bottom:6px}h1{font-size:20px}.desc{font-size:11px;line-height:1.3;margin-bottom:6px}.install{min-height:40px;padding:7px 12px;margin-bottom:7px;font-size:13px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ch{min-height:82px;padding:10px 12px;border-radius:13px}.name{font-size:16px}.sub{font-size:10px}.go{font-size:10px;margin-top:6px;padding:5px 7px}.notice{margin-top:7px;padding-top:6px;font-size:9px;line-height:1.3}}
     @media(horizontal-viewport-segments:2){.wrap{max-width:none;padding-left:max(var(--page-x),var(--safe-l));padding-right:max(var(--page-x),var(--safe-r))}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-    .weekly{margin:0 0 14px;padding:15px;border:1px solid #66542e;border-radius:16px;background:linear-gradient(135deg,#272219,#171c24)}
+    .weekly{margin:16px 0 14px;padding:15px;border:1px solid #66542e;border-radius:16px;background:linear-gradient(135deg,#272219,#171c24)}
     .weekly h2{margin:0 0 8px;font-size:clamp(14px,4vw,18px);line-height:1.4;color:#ffe0a1}.weekly-meta,.weekly-note{margin:6px 0;color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}.weekly-note{margin-bottom:0}.weekly-source{color:#e9cb8c;text-underline-offset:3px}.weekly-winner{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;margin:10px 0}.weekly-channel{font-weight:850;color:#ffe0a1;font-size:13px}.weekly-program{font-size:clamp(14px,4vw,18px);line-height:1.5;overflow-wrap:anywhere}.weekly-value{font-size:clamp(21px,6vw,29px);color:#ffe0a1;font-variant-numeric:tabular-nums;white-space:nowrap}.weekly-top{border-color:#9c7b37}.weekly-badge{display:block;width:fit-content;max-width:100%;padding:4px 6px;margin-bottom:9px;border-radius:6px;background:#493c20;color:#ffe0a1;font-size:10px;font-weight:800;line-height:1.4;overflow-wrap:anywhere}
   </style>
 </head>
@@ -44,14 +44,6 @@
     <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
     <div id="iosGuide" class="ios"><strong>아이폰 최적화 모드</strong><br>채널을 누르면 방송사 공식 온에어가 Safari 새 화면으로 바로 열립니다.<span class="tiny">컴판다 ON AIR 앱은 종료되지 않으므로 뒤로 다시 실행할 필요가 없습니다.</span></div>
 
-    <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
-      <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
-      <p id="weeklyStatus" class="weekly-meta" role="status">공식 주간 시청률 확인 중…</p>
-      <div id="weeklyWinners"></div>
-      <p class="weekly-note">각 채널에서 주간 시청률이 가장 높은 프로그램입니다.<br>전국 가구 기준 · 공개 TOP 20 기준 · 공동 1위 포함<br>출처: <a class="weekly-source" href="https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&amp;area=00" target="_blank" rel="noopener">닐슨코리아 공식 주간 순위 ↗</a></p>
-      <noscript><p class="weekly-meta">위 공식 주간 순위 링크에서 시청률을 확인하세요.</p></noscript>
-    </section>
-
     <section class="grid" aria-label="지상파 온에어">
       <a class="ch" data-channel="kbs1" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" data-viewer="./viewer.html?ch=kbs1" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="kbs2" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" data-viewer="./viewer.html?ch=kbs2" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
@@ -59,6 +51,14 @@
       <a class="ch" data-channel="sbs" data-official="https://www.sbs.co.kr/ko/live" data-viewer="./viewer.html?ch=sbs" href="https://www.sbs.co.kr/ko/live" target="_blank" rel="noopener"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="ebs1" data-official="https://www.ebs.co.kr/onair?channelCodeString=tv" data-viewer="./viewer.html?ch=ebs1" href="https://www.ebs.co.kr/onair?channelCodeString=tv" target="_blank" rel="noopener"><div><div class="name">EBS 1</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="ebs2" data-official="https://www.ebs.co.kr/onair?channelCodeString=tv2" data-viewer="./viewer.html?ch=ebs2" href="https://www.ebs.co.kr/onair?channelCodeString=tv2" target="_blank" rel="noopener"><div><div class="name">EBS 2</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
+    </section>
+
+    <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
+      <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
+      <p id="weeklyStatus" class="weekly-meta" role="status">공식 주간 시청률 확인 중…</p>
+      <div id="weeklyWinners"></div>
+      <p class="weekly-note">각 채널에서 주간 시청률이 가장 높은 프로그램입니다.<br>전국 가구 기준 · 공개 TOP 20 기준 · 공동 1위 포함<br>출처: <a class="weekly-source" href="https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&amp;area=00" target="_blank" rel="noopener">닐슨코리아 공식 주간 순위 ↗</a></p>
+      <noscript><p class="weekly-meta">위 공식 주간 순위 링크에서 시청률을 확인하세요.</p></noscript>
     </section>
 
     <div class="notice">※ 아이폰은 방송사 보안정책상 앱 내부 표시가 제한될 수 있어 공식 Safari 화면을 우선 사용합니다. 갤럭시·PC에서는 컴판다 채널 전환 화면을 사용할 수 있습니다.</div>
