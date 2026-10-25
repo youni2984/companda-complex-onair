@@ -48,7 +48,14 @@
           }
           rating.textContent = winners[0].rating.toFixed(1) + '%';
         } else {
-          title.textContent = channelId === 'ytn' ? '지상파 순위 집계 대상 아님' : ['mbcgn','knn'].includes(channelId) ? '지역 시청률 자료 미제공' : '공개 TOP 20 미포함 · 1위 확인 불가';
+          title.textContent = channelId === 'ytn' ? '주간 1위 확인 불가 · 케이블 공개 TOP 10 미포함' : ['mbcgn','knn'].includes(channelId) ? '주간 1위 확인 불가 · 지역 공식 자료 미확보' : '공개 TOP 20 미포함 · 1위 확인 불가';
+          if (['ytn','mbcgn','knn'].includes(channelId)) {
+            const official = document.querySelector('.ch[data-channel="' + channelId + '"]')?.dataset.official;
+            if (official) {
+              const link = document.createElement('a'); link.href = official; link.target = '_blank'; link.rel = 'noopener';
+              link.textContent = ' 공식 방송 ↗'; link.className = 'weekly-source'; title.append(link);
+            }
+          }
           title.style.fontSize = '12px'; rating.textContent = '—';
         }
         row.append(label, title, rating); list.append(row);

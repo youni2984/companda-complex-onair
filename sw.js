@@ -1,5 +1,5 @@
-const CACHE='companda-onair-v9';
-const ASSETS=['./','./index.html','./weekly-ratings.js','./viewer.html','./devices.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
+const CACHE='companda-onair-v10';
+const ASSETS=['./','./index.html','./weekly-ratings.js?v=10','./viewer.html','./devices.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
   self.skipWaiting();
@@ -22,7 +22,7 @@ self.addEventListener('fetch',event=>{
     event.respondWith(fetch(event.request,{cache:'no-store'}));
     return;
   }
-  if(event.request.mode==='navigate'){
+  if(event.request.mode==='navigate'||url.pathname.endsWith('.js')){
     event.respondWith(
       fetch(event.request,{cache:'no-store'})
         .then(response=>{
@@ -32,7 +32,7 @@ self.addEventListener('fetch',event=>{
         })
         .catch(async()=>{
           const exact=await caches.match(event.request);
-          return exact||caches.match('./index.html');
+          return exact||(event.request.mode==='navigate' ? caches.match('./index.html') : Response.error());
         })
     );
     return;
