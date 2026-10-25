@@ -3,16 +3,22 @@
   const status = document.getElementById('weeklyStatus');
   const list = document.getElementById('weeklyWinners');
   const source = 'https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00';
-  // Exact program matches only: never open a different show's replay.
-  const kbsReplays = {
-    '엄마가미쳤어요': 'https://vod.kbs.co.kr/index.html?source=episode&sname=vod&stype=vod&program_code=T2026-0197&program_id=PS-2026084265-01-000&broadcast_complete_yn=N&local_station_code=00&section_code=03',
-    '사랑이온다': 'https://vod.kbs.co.kr/m/index.html?broadcast_complete_yn=&local_station_code=00&program_code=T2026-0039&program_id=PS-2026183638-01-000&section_code=03&sname=vod&source=episode&stype=vod'
+  // Confirmed official episode 1 links, matched by channel and program.
+  const programReplays = {
+    'kbs1:엄마가미쳤어요': {
+      url: 'https://vod.kbs.co.kr/index.html?source=episode&sname=vod&stype=vod&program_code=T2026-0197&program_id=PS-2026084265-01-000&broadcast_complete_yn=N&local_station_code=00&section_code=03'
+    },
+    'kbs2:사랑이온다': {
+      url: 'https://vod.kbs.co.kr/index.html?source=episode&sname=vod&stype=vod&program_code=T2026-0039&program_id=PS-2026034678-01-000&broadcast_complete_yn=N&local_station_code=00&section_code=03'
+    },
+    'sbs:닥터X하얀마피아의시대': {
+      url: 'https://programs.sbs.co.kr/drama/doctorx/vod/88585/22000637949'
+    }
   };
   function replayFor(winners, channelId) {
-    if (!['kbs1','kbs2'].includes(channelId)) return null;
-    if (winners.length !== 1) return 'https://vod.kbs.co.kr/';
-    const name = winners[0].program.replace(/\s/g, '').replace(/^KBS[12](?:일일|주말)드라마\((.*)\)$/, '$1');
-    return kbsReplays[name] || 'https://vod.kbs.co.kr/';
+    if (winners.length !== 1) return null;
+    const name = winners[0].program.replace(/\s/g, '').replace(/^(?:KBS[12]|SBS)(?:일일|주말|금토)드라마\((.*)\)$/, '$1').replace(/[:：]/g, '');
+    return programReplays[channelId + ':' + name] || null;
   }
   const channels = new Set(['kbs1', 'kbs2', 'mbc', 'sbs', 'ebs1', 'ebs2']);
   const parseDate = value => {
@@ -36,7 +42,7 @@
       const stale = (parseDate(kstToday) - end) / 86400000 > 14;
       status.textContent = `${data.periodStart.replaceAll('-', '.')} ~ ${data.periodEnd.slice(5).replace('-', '.')} · 전국 가구${stale ? ' · 갱신 지연' : ' · 최신 확인'}`;
       list.replaceChildren();
-      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', ytn:'YTN', sbs:'SBS', mbcgn:'MBC경남', knn:'KNN 부산'};
+      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', sbs:'SBS', mbcgn:'MBC경남', knn:'KNN 부산'};
       for (const [channelId, channelLabel] of Object.entries(labels)) {
         const winners = data.channelWinners.filter(w => w.channelId === channelId);
         if (winners.some(w => w.rating !== winners[0].rating)) throw Error('Invalid joint winner');
@@ -46,24 +52,26 @@
         const rating = document.createElement('b'); rating.className = 'weekly-value';
         if (winners.length) {
           title.textContent = winners.map(w => w.program).join(' · ') + (winners.length > 1 ? ' (공동 1위)' : '');
-          const card = document.querySelector('.ch[data-channel="' + channelId + '"]');
           const replay = replayFor(winners, channelId);
-          const official = replay || card?.dataset.official;
-          if (official && new URL(official).protocol === 'https:') {
-            title.href = official; title.target = '_blank'; title.rel = 'noopener';
-            title.setAttribute('aria-label', winners.map(w => w.program).join(' · ') + ' · ' + channelLabel + (replay ? ' 공식 다시보기 열기' : ' 공식 온에어 열기'));
-            title.title = replay ? 'KBS 공식 다시보기 · 회차를 선택해 시청하세요' : '방송사 공식 온에어';
-            if (replay) { const hint = document.createElement('span'); hint.className = 'replay-hint'; const fromFirst = replay.includes('program_id=PS-2026084265-01-000'); hint.textContent = fromFirst ? ' 1회부터 보기 ↗' : ' 다시보기 ↗'; if (fromFirst) { title.title = '엄마가 미쳤어요 · 1회부터 정주행 · 전체회차에서 다음 회차를 선택하세요'; title.setAttribute('aria-label', '엄마가 미쳤어요 · KBS 공식 1회부터 정주행'); } title.append(hint); }
+          if (replay) {
+            title.href = replay.url; title.target = '_blank'; title.rel = 'noopener';
+            title.setAttribute('aria-label', winners[0].program + ' · ' + channelLabel + ' 공식 1회부터 정주행');
+            title.title = '공식 1회부터 보기 · 전체회차에서 다음 회차를 선택하세요';
+            const hint = document.createElement('span'); hint.className = 'replay-hint';
+            hint.textContent = ' 1회부터 정주행 ↗'; title.append(hint);
             if (!stale) {
               const badge = document.createElement('span'); badge.className = 'new-badge'; badge.textContent = 'NEW';
               badge.title = '최신 확인 주간 순위 · 신작 방영 표시가 아닙니다';
               title.prepend(badge);
             }
+          } else {
+            const hint = document.createElement('span'); hint.className = 'replay-hint';
+            hint.textContent = ' · 정주행 링크 확인 중'; title.append(hint);
           }
           rating.textContent = winners[0].rating.toFixed(1) + '%';
         } else {
-          title.textContent = channelId === 'ytn' ? '주간 1위 확인 불가 · 케이블 공개 TOP 10 미포함' : ['mbcgn','knn'].includes(channelId) ? '주간 1위 확인 불가 · 지역 공식 자료 미확보' : '공개 TOP 20 미포함 · 1위 확인 불가';
-          if (['ytn','mbcgn','knn'].includes(channelId)) {
+          title.textContent = ['mbcgn','knn'].includes(channelId) ? '주간 1위 확인 불가 · 지역 공식 자료 미확보' : '공개 TOP 20 미포함 · 1위 확인 불가';
+          if (['mbcgn','knn'].includes(channelId)) {
             const official = document.querySelector('.ch[data-channel="' + channelId + '"]')?.dataset.official;
             if (official) {
               const link = document.createElement('a'); link.href = official; link.target = '_blank'; link.rel = 'noopener';
