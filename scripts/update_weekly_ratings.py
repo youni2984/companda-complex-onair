@@ -59,12 +59,19 @@ def parse(html, today=None):
     previous = 101.0
     previous_rank = 0
     winners = []
+    per_channel = {}
     for rank, channel, program, value in rows:
         rating = float(value)
         rank = int(rank)
         if not 0 < rating <= 100 or rating > previous or rank < previous_rank or not program:
             raise ValueError('Invalid rating order or value')
         previous, previous_rank = rating, rank
+        channel_id = CHANNELS.get(channel.replace(' ', ''))
+        if channel_id:
+            item = {'channel': channel, 'channelId': channel_id, 'program': program, 'rating': rating}
+            best = per_channel.setdefault(channel_id, [])
+            if not best or rating == best[0]['rating']:
+                best.append(item)
         if rank == 1:
             channel_id = CHANNELS.get(channel.replace(' ', ''))
             if not channel_id:
@@ -73,7 +80,8 @@ def parse(html, today=None):
     if any(w['rating'] != winners[0]['rating'] for w in winners):
         raise ValueError('Inconsistent joint first place')
     return {'periodStart': str(start), 'periodEnd': str(end), 'scope': '전국 지상파 · 가구 시청률',
-            'sourceName': '닐슨코리아', 'sourceUrl': SOURCE, 'winners': winners}
+            'sourceName': '닐슨코리아', 'sourceUrl': SOURCE, 'winners': winners,
+            'channelWinners': [item for group in per_channel.values() for item in group]}
 
 
 def main():

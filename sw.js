@@ -1,4 +1,4 @@
-const CACHE='companda-onair-v7';
+const CACHE='companda-onair-v8';
 const ASSETS=['./','./index.html','./weekly-ratings.js','./viewer.html','./devices.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{

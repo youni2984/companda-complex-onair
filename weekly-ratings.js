@@ -19,31 +19,43 @@
       const now = new Date();
       const kstToday = new Date(now.getTime() + 9 * 3600000).toISOString().slice(0, 10);
       if (end - start !== 6 * 86400000 || start.getUTCDay() !== 1 || data.periodEnd >= kstToday || data.sourceUrl !== source ||
-          data.scope !== '전국 지상파 · 가구 시청률' || !Array.isArray(data.winners) || !data.winners.length ||
-          data.winners.some(w => !channels.has(w.channelId) || typeof w.program !== 'string' || !w.program.trim() ||
-            typeof w.channel !== 'string' || !Number.isFinite(w.rating) || w.rating <= 0 || w.rating > 100 || w.rating !== data.winners[0].rating)) throw Error('Invalid ranking');
+          data.scope !== '전국 지상파 · 가구 시청률' || !Array.isArray(data.channelWinners) || !data.channelWinners.length ||
+          data.channelWinners.some(w => !channels.has(w.channelId) || typeof w.program !== 'string' || !w.program.trim() ||
+            typeof w.channel !== 'string' || !Number.isFinite(w.rating) || w.rating <= 0 || w.rating > 100)) throw Error('Invalid ranking');
       const stale = (parseDate(kstToday) - end) / 86400000 > 14;
       status.textContent = `${data.periodStart.replaceAll('-', '.')} ~ ${data.periodEnd.replaceAll('-', '.')} · 전국 지상파 · 가구 기준${stale ? ' · 갱신 지연: 이전 발표 자료' : ' · 최신 확인 발표 자료'}`;
       list.replaceChildren();
-      const joint = data.winners.length > 1;
-      for (const winner of data.winners) {
+      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', mbc:'MBC', sbs:'SBS', ebs1:'EBS 1', ebs2:'EBS 2'};
+      for (const [channelId, channelLabel] of Object.entries(labels)) {
+        const winners = data.channelWinners.filter(w => w.channelId === channelId);
+        if (winners.some(w => w.rating !== winners[0].rating)) throw Error('Invalid joint winner');
         const row = document.createElement('div'); row.className = 'weekly-winner';
-        const label = document.createElement('span'); label.className = 'weekly-channel'; label.textContent = winner.channel;
-        const title = document.createElement('strong'); title.className = 'weekly-program'; title.textContent = winner.program;
-        const rating = document.createElement('b'); rating.className = 'weekly-value'; rating.textContent = `${winner.rating.toFixed(1)}%`;
+        const label = document.createElement('span'); label.className = 'weekly-channel'; label.textContent = channelLabel;
+        const title = document.createElement('strong'); title.className = 'weekly-program';
+        const rating = document.createElement('b'); rating.className = 'weekly-value';
+        if (winners.length) {
+          title.textContent = winners.map(w => w.program).join(' · ') + (winners.length > 1 ? ' (공동 1위)' : '');
+          rating.textContent = winners[0].rating.toFixed(1) + '%';
+        } else {
+          title.textContent = '공개 TOP 20 미포함 · 1위 확인 불가';
+          title.style.fontSize = '12px'; rating.textContent = '—';
+        }
         row.append(label, title, rating); list.append(row);
-        if (!stale) {
-          const card = document.querySelector(`.ch[data-channel="${winner.channelId}"]`);
+        if (!stale && winners.length) {
+          const card = document.querySelector('.ch[data-channel="' + channelId + '"]');
           if (card && !card.querySelector('.weekly-badge')) {
             const badge = document.createElement('span'); badge.className = 'weekly-badge';
-            badge.textContent = `🏆 주간 시청률 ${joint ? '공동 ' : ''}1위 프로그램`;
-            badge.title = `${winner.program} · ${winner.rating}% · ${data.periodStart} ~ ${data.periodEnd}`;
+            badge.textContent = '🏆 채널 주간 ' + (winners.length > 1 ? '공동 ' : '') + '1위';
+            badge.title = winners.map(w => w.program).join(' · ') + ' · ' + winners[0].rating + '%';
             card.querySelector('.name').before(badge); card.classList.add('weekly-top');
           }
         }
       }
-      document.getElementById('weeklyTitle').textContent = `🏆 지상파 주간 시청률 ${joint ? '공동 ' : ''}1위 프로그램`;
+      document.getElementById('weeklyTitle').textContent = '🏆 방송사별 주간 시청률 1위';
     } catch (error) {
+      list.replaceChildren();
+      document.querySelectorAll('.weekly-badge').forEach(el => el.remove());
+      document.querySelectorAll('.weekly-top').forEach(el => el.classList.remove('weekly-top'));
       status.textContent = '주간 시청률 자료를 확인할 수 없습니다. 공식 순위에서 확인해 주세요.';
     } finally { box.setAttribute('aria-busy', 'false'); }
   }
