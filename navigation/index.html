@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07131f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="컴판다 통합네비">
+  <title>컴판다 통합 네비게이션</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">COMPANDA MOBILITY</p>
+        <h1>컴판다 통합 네비게이션</h1>
+        <p>도로 · 항공 · 선박 이동을 한 화면에서 연결합니다.</p>
+      </div>
+      <button id="locateBtn" class="icon-btn" type="button" aria-label="현재 위치 가져오기">◎</button>
+    </header>
+
+    <nav class="mode-tabs" aria-label="이동 수단">
+      <button class="active" data-mode="road">🚗 도로</button>
+      <button data-mode="air">✈️ 항공</button>
+      <button data-mode="sea">⛴️ 선박</button>
+    </nav>
+
+    <section id="roadPanel" class="panel active">
+      <div class="card form-card">
+        <h2>목적지</h2>
+        <label>목적지 이름<input id="destName" value="목적지" autocomplete="off"></label>
+        <div class="two-col">
+          <label>위도<input id="destLat" inputmode="decimal" placeholder="예: 37.3952969"></label>
+          <label>경도<input id="destLng" inputmode="decimal" placeholder="예: 127.1104493"></label>
+        </div>
+        <p class="hint">지도 검색 API 키 없이도 좌표만 있으면 정식 지도 앱으로 바로 넘길 수 있습니다.</p>
+      </div>
+
+      <div class="card current-card">
+        <div><span>현재 위치</span><strong id="currentPos">권한 대기</strong></div>
+        <small>위치정보는 이 페이지에서 경로 실행용으로만 사용하며 서버로 전송하지 않습니다.</small>
+      </div>
+
+      <section class="launcher-grid" aria-label="지도 앱 실행">
+        <button class="launcher kakao" data-provider="kakao"><b>카카오맵</b><span>공식 길찾기 열기</span></button>
+        <button class="launcher naver" data-provider="naver"><b>네이버지도</b><span>앱 내비게이션 호출</span></button>
+        <button class="launcher google" data-provider="google"><b>Google Maps</b><span>정식 앱/웹 자동 연결</span></button>
+        <button class="launcher tmap" data-provider="tmap"><b>TMAP</b><span>공식 앱 실행</span></button>
+        <button class="launcher inavi" data-provider="inavi"><b>아이나비 에어</b><span>정식 앱 설치/실행 안내</span></button>
+      </section>
+
+      <div class="card note-card">
+        <h3>통합 방식</h3>
+        <p>각 회사의 앱을 복제하거나 계정을 가져오는 방식이 아닙니다. 공식 URL Scheme·Universal Link·API/SDK를 이용해 목적지를 전달합니다.</p>
+      </div>
+    </section>
+
+    <section id="airPanel" class="panel">
+      <div class="card status-card">
+        <span class="badge">PHASE 2</span>
+        <h2>국내 항공 이동</h2>
+        <p>출발·도착 공항, 편명, 출도착 시각과 운항 상태를 공공데이터 API에서 받아 표시하고, 공항까지는 도로 네비게이션으로 연결하는 구조입니다.</p>
+        <ul><li>국토교통부 TAGO 국내항공운항정보</li><li>인천국제공항공사 실시간 운항정보</li><li>API 키는 브라우저가 아니라 서버 환경변수에 저장</li></ul>
+      </div>
+    </section>
+
+    <section id="seaPanel" class="panel">
+      <div class="card status-card">
+        <span class="badge">PHASE 2</span>
+        <h2>국내 선박 이동</h2>
+        <p>여객선 항로·출항·입항 정보를 공식 데이터로 조회하고, 출항 항만까지는 도로 네비게이션으로 이어주는 구조입니다.</p>
+        <ul><li>한국해양교통안전공단 여객선 항해정보</li><li>운항 통제용 선박 내비가 아닌 이용객 이동·운항정보 서비스</li><li>실시간 운항 변경은 공식 운영기관 정보를 우선 표시</li></ul>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
