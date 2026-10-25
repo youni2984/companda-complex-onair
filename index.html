@@ -148,6 +148,19 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
 .sbs-vod-item[hidden]{display:none}.sbs-vod-label{flex:0 0 auto;font-size:11px;color:var(--gold)}
 .sbs-vod-all{display:flex;align-items:center;min-height:44px;color:var(--gold);font-size:13px}
 
+
+.content-banners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.content-banners button{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:48px;padding:11px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--txt);font:inherit;font-size:calc(var(--reading)*.875);font-weight:650;line-height:1.5;cursor:pointer;text-align:left}
+.content-banners button[aria-expanded="true"]{border-color:var(--focus);background:var(--soft)}
+.content-banners button[aria-expanded="true"]>span{transform:rotate(180deg)}
+.banner-panel[hidden]{display:none!important}
+.sbs-vod.banner-panel{padding-top:6px}
+.lotto-panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px}
+.lotto-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.lotto-panel-head strong{font-size:var(--reading);font-weight:650}
+.lotto-panel-head a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold);font-size:13px}
+#lottoFrame{display:block;width:100%;height:65svh;min-height:280px;max-height:680px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+
 </style>
 <script>
 (() => {
@@ -185,8 +198,12 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
     </section>
 
 
-    <details class="sbs-vod" id="sbsFreeVod">
-      <summary>SBS 무료 VOD <span>작품 목록 보기 ▾</span></summary>
+    <div class="content-banners" role="group" aria-label="콘텐츠 펼침 메뉴">
+      <button type="button" id="sbsBannerBtn" aria-controls="sbsFreeVod" aria-expanded="false">SBS 무료 VOD <span aria-hidden="true">▾</span></button>
+      <button type="button" id="lottoBannerBtn" aria-controls="lottoPanel" aria-expanded="false">동행복권 <span aria-hidden="true">▾</span></button>
+    </div>
+    <section class="sbs-vod banner-panel" id="sbsFreeVod" aria-label="SBS 무료 VOD 작품 목록" hidden>
+
       <div class="sbs-vod-body">
         <p class="sbs-vod-note">SBS 공식 무료 목록에서 확인한 30개 작품 · 2026.10.26<br>작품 선택 → 공식 회차 목록. 무료 회차·로그인 여부는 SBS 안내를 확인하세요.</p>
         <div class="sbs-vod-filters"><label>작품 검색<input id="sbsVodSearch" type="search" placeholder="제목 입력" autocomplete="off"></label><label>장르<select id="sbsVodGenre"><option value="all">전체</option><option value="drama">드라마</option><option value="enter">예능</option></select></label></div>
@@ -224,7 +241,13 @@ a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
         <p id="sbsVodEmpty" class="sbs-vod-note" hidden>검색 결과가 없습니다.</p>
         <a class="sbs-vod-all" href="https://www.sbs.co.kr/tv/free?category=drama" target="_blank" rel="noopener">SBS 공식 전체 무료 목록 ↗</a>
       </div>
-    </details>
+    </section>
+
+    <section class="lotto-panel banner-panel" id="lottoPanel" aria-label="동행복권 정보" hidden>
+      <div class="lotto-panel-head"><strong>동행복권</strong><a href="https://onairtv.kr/lotto/" target="_blank" rel="noopener">페이지 바로가기 ↗</a></div>
+      <p class="sbs-vod-note">온에어TV의 복권 정보 페이지입니다. 아래 화면이 표시되지 않으면 ‘페이지 바로가기’를 눌러주세요.</p>
+      <iframe id="lottoFrame" title="온에어TV 동행복권 정보 페이지" data-src="https://onairtv.kr/lotto/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
+    </section>
 
     <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
       <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
@@ -264,6 +287,28 @@ if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListe
     document.getElementById('sbsVodEmpty').hidden=count!==0;
   }
   search.addEventListener('input',filter);genre.addEventListener('change',filter);
+})();
+</script>
+
+
+<script>
+(() => {
+  const entries=[['sbsBannerBtn','sbsFreeVod'],['lottoBannerBtn','lottoPanel']];
+  entries.forEach(([buttonId,panelId])=>{
+    const button=document.getElementById(buttonId),panel=document.getElementById(panelId);
+    button.addEventListener('click',()=>{
+      const opening=panel.hidden;
+      entries.forEach(([otherButton,otherPanel])=>{
+        document.getElementById(otherButton).setAttribute('aria-expanded','false');
+        document.getElementById(otherPanel).hidden=true;
+      });
+      panel.hidden=!opening;button.setAttribute('aria-expanded',String(opening));
+      if(opening&&panelId==='lottoPanel'){
+        const frame=document.getElementById('lottoFrame');
+        if(!frame.hasAttribute('src'))frame.src=frame.dataset.src;
+      }
+    });
+  });
 })();
 </script>
 
