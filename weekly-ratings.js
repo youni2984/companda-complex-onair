@@ -3,6 +3,17 @@
   const status = document.getElementById('weeklyStatus');
   const list = document.getElementById('weeklyWinners');
   const source = 'https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00';
+  // Exact program matches only: never open a different show's replay.
+  const kbsReplays = {
+    '엄마가미쳤어요': 'https://www.kbs.co.kr/index.html?broadcast_complete_yn=N&local_station_code=00&program_code=T2026-0197&program_id=PS-2026184384-01-000&section_code=03&section_id=28461&sname=vod&source=episode&stype=vod',
+    '사랑이온다': 'https://vod.kbs.co.kr/m/index.html?broadcast_complete_yn=&local_station_code=00&program_code=T2026-0039&program_id=PS-2026183638-01-000&section_code=03&sname=vod&source=episode&stype=vod'
+  };
+  function replayFor(winners, channelId) {
+    if (!['kbs1','kbs2'].includes(channelId)) return null;
+    if (winners.length !== 1) return 'https://vod.kbs.co.kr/';
+    const name = winners[0].program.replace(/\s/g, '').replace(/^KBS[12](?:일일|주말)드라마\((.*)\)$/, '$1');
+    return kbsReplays[name] || 'https://vod.kbs.co.kr/';
+  }
   const channels = new Set(['kbs1', 'kbs2', 'mbc', 'sbs', 'ebs1', 'ebs2']);
   const parseDate = value => {
     if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) throw Error('Invalid date');
@@ -36,10 +47,13 @@
         if (winners.length) {
           title.textContent = winners.map(w => w.program).join(' · ') + (winners.length > 1 ? ' (공동 1위)' : '');
           const card = document.querySelector('.ch[data-channel="' + channelId + '"]');
-          const official = card?.dataset.official;
+          const replay = replayFor(winners, channelId);
+          const official = replay || card?.dataset.official;
           if (official && new URL(official).protocol === 'https:') {
             title.href = official; title.target = '_blank'; title.rel = 'noopener';
-            title.setAttribute('aria-label', winners.map(w => w.program).join(' · ') + ' · ' + channelLabel + ' 공식 온에어 열기');
+            title.setAttribute('aria-label', winners.map(w => w.program).join(' · ') + ' · ' + channelLabel + (replay ? ' 공식 다시보기 열기' : ' 공식 온에어 열기'));
+            title.title = replay ? 'KBS 공식 다시보기 · 회차를 선택해 시청하세요' : '방송사 공식 온에어';
+            if (replay) { const hint = document.createElement('span'); hint.className = 'replay-hint'; hint.textContent = ' 다시보기 ↗'; title.append(hint); }
             if (!stale) {
               const badge = document.createElement('span'); badge.className = 'new-badge'; badge.textContent = 'NEW';
               badge.title = '최신 확인 주간 순위 · 신작 방영 표시가 아닙니다';

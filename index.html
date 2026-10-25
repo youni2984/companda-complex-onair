@@ -133,8 +133,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 a.weekly-program{display:block;min-height:44px;align-content:center}
 a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
 .new-badge{display:inline-block;vertical-align:middle;margin-right:5px;padding:1px 4px;border-radius:4px;background:var(--soft);color:var(--gold);border:1px solid var(--line);font-size:9px;font-weight:650;line-height:1.4}
-.weekly-note::before{content:'NEW: 최신 확인 순위 · 클릭 시 공식 온에어';display:block;color:var(--muted);font-size:11px}
+.weekly-note::before{content:'NEW: 최신 확인 순위 · KBS는 다시보기로 연결';display:block;color:var(--muted);font-size:11px}
 @media(max-width:600px){.weekly-winner{padding:2px 0}.weekly-source{min-height:28px}}
+.replay-hint{display:inline;color:var(--gold);font-size:11px;white-space:nowrap;font-weight:500}
 </style>
 <script>
 (() => {
@@ -195,7 +196,7 @@ if(isStandalone||params.get('preview')==='1')installBtn.style.display='none';
 if(isIOS&&!isStandalone&&params.get('preview')!=='1'){installBtn.textContent='🍎 아이폰 홈 화면에 추가';installBtn.addEventListener('click',()=>iosGuide.scrollIntoView({behavior:'smooth',block:'center'}))}else if(params.get('preview')!=='1'){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block'});installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else if(isSamsung)alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.')})}
 if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
-<script src="./weekly-ratings.js?v=10" defer></script>
+<script src="./weekly-ratings.js?v=11" defer></script>
 </body>
 </html>
 
