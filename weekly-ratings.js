@@ -23,21 +23,32 @@
           data.channelWinners.some(w => !channels.has(w.channelId) || typeof w.program !== 'string' || !w.program.trim() ||
             typeof w.channel !== 'string' || !Number.isFinite(w.rating) || w.rating <= 0 || w.rating > 100)) throw Error('Invalid ranking');
       const stale = (parseDate(kstToday) - end) / 86400000 > 14;
-      status.textContent = `${data.periodStart.replaceAll('-', '.')} ~ ${data.periodEnd.replaceAll('-', '.')} · 전국 지상파 · 가구 기준${stale ? ' · 갱신 지연: 이전 발표 자료' : ' · 최신 확인 발표 자료'}`;
+      status.textContent = `${data.periodStart.replaceAll('-', '.')} ~ ${data.periodEnd.slice(5).replace('-', '.')} · 전국 가구${stale ? ' · 갱신 지연' : ' · 최신 확인'}`;
       list.replaceChildren();
-      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', mbc:'MBC', sbs:'SBS', ebs1:'EBS 1', ebs2:'EBS 2'};
+      const labels = {kbs1:'KBS 1TV', kbs2:'KBS 2TV', ytn:'YTN', sbs:'SBS', mbcgn:'MBC경남', knn:'KNN 부산'};
       for (const [channelId, channelLabel] of Object.entries(labels)) {
         const winners = data.channelWinners.filter(w => w.channelId === channelId);
         if (winners.some(w => w.rating !== winners[0].rating)) throw Error('Invalid joint winner');
         const row = document.createElement('div'); row.className = 'weekly-winner';
         const label = document.createElement('span'); label.className = 'weekly-channel'; label.textContent = channelLabel;
-        const title = document.createElement('strong'); title.className = 'weekly-program';
+        const title = document.createElement(winners.length ? 'a' : 'span'); title.className = 'weekly-program';
         const rating = document.createElement('b'); rating.className = 'weekly-value';
         if (winners.length) {
           title.textContent = winners.map(w => w.program).join(' · ') + (winners.length > 1 ? ' (공동 1위)' : '');
+          const card = document.querySelector('.ch[data-channel="' + channelId + '"]');
+          const official = card?.dataset.official;
+          if (official && new URL(official).protocol === 'https:') {
+            title.href = official; title.target = '_blank'; title.rel = 'noopener';
+            title.setAttribute('aria-label', winners.map(w => w.program).join(' · ') + ' · ' + channelLabel + ' 공식 온에어 열기');
+            if (!stale) {
+              const badge = document.createElement('span'); badge.className = 'new-badge'; badge.textContent = 'NEW';
+              badge.title = '최신 확인 주간 순위 · 신작 방영 표시가 아닙니다';
+              title.prepend(badge);
+            }
+          }
           rating.textContent = winners[0].rating.toFixed(1) + '%';
         } else {
-          title.textContent = '공개 TOP 20 미포함 · 1위 확인 불가';
+          title.textContent = channelId === 'ytn' ? '지상파 순위 집계 대상 아님' : ['mbcgn','knn'].includes(channelId) ? '지역 시청률 자료 미제공' : '공개 TOP 20 미포함 · 1위 확인 불가';
           title.style.fontSize = '12px'; rating.textContent = '—';
         }
         row.append(label, title, rating); list.append(row);

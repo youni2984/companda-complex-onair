@@ -19,13 +19,100 @@
     .ios-panel{display:none;position:absolute;inset:0;padding:22px;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 15%,#182231 0,#0b0f14 58%);text-align:center}.ios-card{width:min(420px,100%);border:1px solid var(--line);border-radius:22px;background:#141a22;padding:24px 18px}.ios-icon{font-size:42px}.ios-name{font-size:24px;font-weight:950;margin:10px 0 6px}.ios-text{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px}.ios-open{display:block;width:100%;border:0;border-radius:14px;background:#0a70ef;color:#fff;text-decoration:none;padding:14px 16px;font-size:15px;font-weight:900}.ios-tip{margin-top:10px;color:#788697;font-size:11px;line-height:1.45}
     html.ios-mode .frame-wrap iframe,html.ios-mode .loading,html.ios-mode .blocked{display:none!important}html.ios-mode .ios-panel{display:flex}
     @media(min-width:700px){.topbar{padding:12px 18px}.channels{padding-left:18px;padding-right:18px}.helper{padding-left:18px;padding-right:18px}.channel{min-width:86px}.title{font-size:19px}.blocked{left:18px;right:18px}}@media(orientation:landscape) and (max-height:560px){.topbar{padding-top:6px;padding-bottom:6px}.back{width:36px;height:36px}.external{padding:8px 10px}.channels{padding-top:6px;padding-bottom:6px}.channel{height:36px;border-radius:11px}.helper{padding-top:5px;padding-bottom:5px}}
-  </style>
+  
+/* Comfortable reading and touch controls */
+:root{--bg:#191d22;--card:#232a31;--panel:#232a31;--line:#46505b;--txt:#e4e4df;--muted:#bbc2c9;--accent:#7c3436;--soft:#2c353e;--gold:#dcc591;--focus:#bed5dc;--reading:1rem}
+:root[data-theme="night"]{--bg:#11161b;--card:#1c242c;--panel:#1c242c;--line:#424e59;--txt:#d6dcd9;--muted:#b3bfc7;--soft:#27323c;--gold:#cbbd99;--focus:#b6cad5}
+:root[data-theme="day"]{color-scheme:light;--bg:#f2efe7;--card:#faf7ef;--panel:#faf7ef;--line:#8e9694;--txt:#263331;--muted:#4c5b57;--soft:#e5e6dc;--gold:#65512d;--focus:#315c58;--accent:#88514a}
+:root[data-large="true"]{--reading:1.125rem}
+html{scroll-padding:16px}
+body{color:var(--txt);line-height:1.6}
+h1{white-space:normal;font-size:clamp(1.15rem,5.2vw,1.7rem);line-height:1.35}
+a,button{-webkit-tap-highlight-color:rgba(180,200,200,.15)}
+button{font-family:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus)!important;outline-offset:3px}
+.comfort-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.comfort-tools button{flex:1 1 130px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--soft);color:var(--txt);font-size:calc(var(--reading)*.875);font-weight:650;padding:9px 12px;line-height:1.4}
+.comfort-tools button[aria-pressed="true"]{border-color:var(--focus)}
+.desc{font-size:calc(var(--reading)*.875);line-height:1.65}
+.install,.ios,.lab-link{background:var(--card);color:var(--txt);border-color:var(--line)}
+.install{font-size:var(--reading);min-height:48px}
+.ios{font-size:calc(var(--reading)*.875)}
+.ios strong,.ios .tiny{color:var(--txt)}
+.ios .tiny{font-size:calc(var(--reading)*.8125);line-height:1.6}
+.grid{gap:12px}
+.ch{background:var(--card);color:var(--txt);border-color:var(--line);min-height:124px;padding:16px}
+.ch:active{background:var(--soft);transform:none}
+.name{font-size:calc(var(--reading)*1.25);line-height:1.35;letter-spacing:-.02em}
+.sub,.go{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.go{background:var(--soft);color:var(--txt);margin-top:12px}
+.live{background:var(--accent);color:#f4e8e2;font-size:12px;font-weight:700}
+.weekly{background:var(--card);border-color:var(--line);padding:16px;margin-top:20px}
+.weekly h2{font-size:calc(var(--reading)*1.05);color:var(--gold);font-weight:700}
+.weekly-meta,.weekly-note,.notice{font-size:calc(var(--reading)*.8125);line-height:1.7}
+.weekly-source{color:var(--gold);display:inline-flex;align-items:center;min-height:44px}
+.weekly-winner{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;margin:0;border-bottom:1px solid var(--line)}
+.weekly-channel{grid-column:1;font-size:calc(var(--reading)*.8125);font-weight:600;color:var(--muted)}
+.weekly-program{grid-column:1;grid-row:2;font-size:var(--reading)!important;line-height:1.65;font-weight:600}
+.weekly-value{grid-column:2;grid-row:1 / 3;align-self:center;font-size:calc(var(--reading)*1.25);color:var(--gold);font-weight:650}
+.weekly-badge{background:var(--soft);color:var(--gold);font-size:12px;font-weight:600;margin-bottom:8px}
+.weekly-top{border-color:var(--line)}
+.lab-link{font-size:calc(var(--reading)*.875);min-height:48px}
+.topbar{background:var(--bg);flex-wrap:wrap}
+.back,.external,.channel,.blocked a,.ios-open{background:var(--soft);color:var(--txt);border:1px solid var(--line);min-height:44px}
+.back{width:44px;height:44px}
+.external{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.title{font-size:calc(var(--reading)*1.0625);font-weight:700}
+.status{font-size:calc(var(--reading)*.8125)}
+.channels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;overflow:visible}
+.channel{min-width:0;height:auto;min-height:44px;padding:9px 4px;font-size:calc(var(--reading)*.875);border-radius:10px;font-weight:650}
+.channel.active{background:var(--soft);color:var(--txt);border:2px solid var(--focus);box-shadow:none}
+.channel.active:after{display:none}
+.helper,.blocked,.ios-card{background:var(--panel);color:var(--muted)}
+.helper{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.helper b{color:var(--txt)}
+.fallback{min-height:44px;font-size:13px;color:var(--focus)}
+.blocked span,.blocked a,.ios-text,.ios-tip{font-size:calc(var(--reading)*.8125);line-height:1.6}
+.blocked span{color:var(--muted)}
+.ios-panel{background:var(--bg);overflow-y:auto}
+.ios-name{color:var(--txt)}
+.ios-tip{color:var(--muted)}
+.app{grid-template-rows:auto auto auto auto minmax(180px,1fr);height:100%;overflow-y:auto}
+.app>.comfort-tools{margin:0;padding:8px 12px;background:var(--bg)}
+@media(max-width:600px){.channels{grid-template-columns:repeat(3,minmax(0,1fr))}.wrap{padding-left:14px;padding-right:14px}.blocked{position:static;border-radius:0}.frame-wrap{display:flex;flex-direction:column}.frame-wrap iframe{flex:1;min-height:180px;height:auto}.ios-panel{padding:12px}.ios-card{padding:18px 14px}}
+@media(max-width:359px){.wrap{padding-left:10px;padding-right:10px}.ch{padding:12px;min-height:116px}.name{font-size:calc(var(--reading)*1.125)}.grid{gap:9px}.weekly{padding:12px}.external{white-space:normal}.titles{flex-basis:110px}}
+@media(orientation:landscape) and (max-height:600px){.channels{grid-template-columns:repeat(6,minmax(0,1fr))}.channel{min-height:44px}.ch{min-height:112px}.sub,.go,.notice,.desc{font-size:calc(var(--reading)*.8125)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+<script>
+(() => {
+  const root=document.documentElement, themes=['soft','night','day'];
+  let theme='soft', large=false;
+  try { const saved=JSON.parse(localStorage.getItem('companda-display')||'{}'); if(themes.includes(saved.theme))theme=saved.theme; large=saved.large===true; } catch {}
+  function apply(){
+    root.dataset.theme=theme;root.dataset.large=String(large);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',{soft:'#191d22',night:'#11161b',day:'#f2efe7'}[theme]);
+    const mode=document.getElementById('comfortTheme'), size=document.getElementById('comfortSize');
+    if(mode)mode.textContent='화면 · '+{soft:'편안한 회색',night:'야간',day:'밝은 낮'}[theme];
+    if(size){size.textContent=large?'글자 · 크게':'글자 · 기본';size.setAttribute('aria-pressed',String(large));}
+  }
+  function save(){try{localStorage.setItem('companda-display',JSON.stringify({theme,large}))}catch{}apply()}
+  apply();
+  document.addEventListener('DOMContentLoaded',()=>{
+    apply();
+    document.getElementById('comfortTheme')?.addEventListener('click',()=>{theme=themes[(themes.indexOf(theme)+1)%themes.length];save()});
+    document.getElementById('comfortSize')?.addEventListener('click',()=>{large=!large;save()});
+  });
+})();
+</script>
 </head>
 <body>
   <main class="app">
     <header class="topbar"><a class="back" href="./index.html" aria-label="홈으로">‹</a><div class="titles"><div id="title" class="title">KBS 1TV 시청 중</div><div id="status" class="status">앱 안에서 다른 방송사로 바로 전환할 수 있습니다.</div></div><a id="external" class="external" href="#" target="_blank" rel="noopener">공식 페이지 ↗</a></header>
-    <nav class="channels" aria-label="채널 전환"><button class="channel" data-id="kbs1">KBS1</button><button class="channel" data-id="kbs2">KBS2</button><button class="channel" data-id="mbc">MBC</button><button class="channel" data-id="sbs">SBS</button><button class="channel" data-id="ebs1">EBS1</button><button class="channel" data-id="ebs2">EBS2</button></nav>
+    <nav class="channels" aria-label="채널 전환"><button class="channel" data-id="kbs1">KBS1</button><button class="channel" data-id="kbs2">KBS2</button><button class="channel" data-id="ytn">YTN</button><button class="channel" data-id="sbs">SBS</button><button class="channel" data-id="mbcgn">MBC경남</button><button class="channel" data-id="knn">KNN 부산</button></nav>
     <div class="helper"><span class="bolt">⚡</span><span><b>앱 안에서 바로 채널 전환</b> · 위 채널을 누르면 즉시 변경합니다.</span><button id="homeBtn" class="fallback" type="button">채널 목록</button></div>
+    <div class="comfort-tools" role="group" aria-label="화면과 글자 설정"><button id="comfortTheme" type="button" aria-label="화면 색상 변경: 편안한 회색, 야간, 밝은 낮">화면 · 편안한 회색</button><button id="comfortSize" type="button" aria-pressed="false">글자 · 기본</button></div>
     <section class="frame-wrap">
       <div id="loading" class="loading">공식 온에어 페이지 불러오는 중…</div><iframe id="viewer" title="방송사 공식 온에어" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       <div class="blocked"><span>방송사 보안정책으로 내부 화면이 안 보이면 오른쪽 버튼으로 공식 온에어를 여세요. 컴판다 ON AIR는 그대로 유지됩니다.</span><a id="blockedExternal" href="#" target="_blank" rel="noopener">공식 온에어 ↗</a></div>
@@ -33,10 +120,10 @@
     </section>
   </main>
 <script>
-const CHANNELS={kbs1:{name:'KBS 1TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList'},kbs2:{name:'KBS 2TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList'},mbc:{name:'MBC',url:'https://onair.imbc.com/'},sbs:{name:'SBS',url:'https://www.sbs.co.kr/ko/live'},ebs1:{name:'EBS 1',url:'https://www.ebs.co.kr/onair?channelCodeString=tv'},ebs2:{name:'EBS 2',url:'https://www.ebs.co.kr/onair?channelCodeString=tv2'}};
+const CHANNELS={kbs1:{name:'KBS 1TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList'},kbs2:{name:'KBS 2TV',url:'https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList'},ytn:{name:'YTN',url:'https://www.ytn.co.kr/_hd/hd_main.html'},sbs:{name:'SBS',url:'https://www.sbs.co.kr/ko/live'},mbcgn:{name:'MBC경남 · 창원',url:'https://mbcgn.kr/'},knn:{name:'KNN · 부산경남',url:'https://www.knn.co.kr/onair/?channel=tv'}};
 const ua=navigator.userAgent||'';const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);if(isIOS)document.documentElement.classList.add('ios-mode');
 const params=new URLSearchParams(location.search),viewer=document.getElementById('viewer'),loading=document.getElementById('loading'),title=document.getElementById('title'),status=document.getElementById('status'),external=document.getElementById('external'),blockedExternal=document.getElementById('blockedExternal'),iosOpen=document.getElementById('iosOpen'),iosName=document.getElementById('iosName'),buttons=[...document.querySelectorAll('.channel')];
-function selectChannel(id,push=true){if(!CHANNELS[id])id='kbs1';const ch=CHANNELS[id];buttons.forEach(b=>b.classList.toggle('active',b.dataset.id===id));buttons.find(b=>b.dataset.id===id)?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});title.textContent=`${ch.name} 시청 중`;document.title=`${ch.name} · 컴판다 ON AIR`;external.href=ch.url;blockedExternal.href=ch.url;iosOpen.href=ch.url;iosName.textContent=ch.name;status.textContent=isIOS?'아이폰 최적화 모드 · 공식 Safari 온에어로 바로 연결':'앱 안에서 다른 방송사로 바로 전환할 수 있습니다.';if(!isIOS){loading.classList.remove('hide');viewer.src=ch.url}else{viewer.removeAttribute('src')}try{localStorage.setItem('companda-last-channel',id)}catch(e){}if(push){const q=new URLSearchParams(location.search);q.set('ch',id);history.replaceState(null,'',`${location.pathname}?${q.toString()}`)}}
+function selectChannel(id,push=true){if(!CHANNELS[id])id='kbs1';const ch=CHANNELS[id];buttons.forEach(b=>{b.classList.toggle('active',b.dataset.id===id);b.setAttribute('aria-pressed',String(b.dataset.id===id))});buttons.find(b=>b.dataset.id===id)?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',inline:'center',block:'nearest'});title.textContent=`${ch.name} 시청 중`;document.title=`${ch.name} · 컴판다 ON AIR`;external.href=ch.url;blockedExternal.href=ch.url;iosOpen.href=ch.url;iosName.textContent=ch.name;status.textContent=isIOS?'아이폰 최적화 모드 · 공식 Safari 온에어로 바로 연결':'앱 안에서 다른 방송사로 바로 전환할 수 있습니다.';if(!isIOS){loading.classList.remove('hide');viewer.src=ch.url}else{viewer.removeAttribute('src')}try{localStorage.setItem('companda-last-channel',id)}catch(e){}if(push){const q=new URLSearchParams(location.search);q.set('ch',id);history.replaceState(null,'',`${location.pathname}?${q.toString()}`)}}
 viewer.addEventListener('load',()=>setTimeout(()=>loading.classList.add('hide'),250));buttons.forEach(b=>b.addEventListener('click',()=>selectChannel(b.dataset.id)));document.getElementById('homeBtn').addEventListener('click',()=>location.href='./index.html');let initial=params.get('ch');if(!CHANNELS[initial]){try{initial=localStorage.getItem('companda-last-channel')}catch(e){}}selectChannel(CHANNELS[initial]?initial:'kbs1',false);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body>

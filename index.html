@@ -35,32 +35,153 @@
     @media(horizontal-viewport-segments:2){.wrap{max-width:none;padding-left:max(var(--page-x),var(--safe-l));padding-right:max(var(--page-x),var(--safe-r))}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
     .weekly{margin:16px 0 14px;padding:15px;border:1px solid #66542e;border-radius:16px;background:linear-gradient(135deg,#272219,#171c24)}
     .weekly h2{margin:0 0 8px;font-size:clamp(14px,4vw,18px);line-height:1.4;color:#ffe0a1}.weekly-meta,.weekly-note{margin:6px 0;color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}.weekly-note{margin-bottom:0}.weekly-source{color:#e9cb8c;text-underline-offset:3px}.weekly-winner{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;margin:10px 0}.weekly-channel{font-weight:850;color:#ffe0a1;font-size:13px}.weekly-program{font-size:clamp(14px,4vw,18px);line-height:1.5;overflow-wrap:anywhere}.weekly-value{font-size:clamp(21px,6vw,29px);color:#ffe0a1;font-variant-numeric:tabular-nums;white-space:nowrap}.weekly-top{border-color:#9c7b37}.weekly-badge{display:block;width:fit-content;max-width:100%;padding:4px 6px;margin-bottom:9px;border-radius:6px;background:#493c20;color:#ffe0a1;font-size:10px;font-weight:800;line-height:1.4;overflow-wrap:anywhere}
-  </style>
+  
+/* Comfortable reading and touch controls */
+:root{--bg:#191d22;--card:#232a31;--panel:#232a31;--line:#46505b;--txt:#e4e4df;--muted:#bbc2c9;--accent:#7c3436;--soft:#2c353e;--gold:#dcc591;--focus:#bed5dc;--reading:1rem}
+:root[data-theme="night"]{--bg:#11161b;--card:#1c242c;--panel:#1c242c;--line:#424e59;--txt:#d6dcd9;--muted:#b3bfc7;--soft:#27323c;--gold:#cbbd99;--focus:#b6cad5}
+:root[data-theme="day"]{color-scheme:light;--bg:#f2efe7;--card:#faf7ef;--panel:#faf7ef;--line:#8e9694;--txt:#263331;--muted:#4c5b57;--soft:#e5e6dc;--gold:#65512d;--focus:#315c58;--accent:#88514a}
+:root[data-large="true"]{--reading:1.125rem}
+html{scroll-padding:16px}
+body{color:var(--txt);line-height:1.6}
+h1{white-space:normal;font-size:clamp(1.15rem,5.2vw,1.7rem);line-height:1.35}
+a,button{-webkit-tap-highlight-color:rgba(180,200,200,.15)}
+button{font-family:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus)!important;outline-offset:3px}
+.comfort-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.comfort-tools button{flex:1 1 130px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--soft);color:var(--txt);font-size:calc(var(--reading)*.875);font-weight:650;padding:9px 12px;line-height:1.4}
+.comfort-tools button[aria-pressed="true"]{border-color:var(--focus)}
+.desc{font-size:calc(var(--reading)*.875);line-height:1.65}
+.install,.ios,.lab-link{background:var(--card);color:var(--txt);border-color:var(--line)}
+.install{font-size:var(--reading);min-height:48px}
+.ios{font-size:calc(var(--reading)*.875)}
+.ios strong,.ios .tiny{color:var(--txt)}
+.ios .tiny{font-size:calc(var(--reading)*.8125);line-height:1.6}
+.grid{gap:12px}
+.ch{background:var(--card);color:var(--txt);border-color:var(--line);min-height:124px;padding:16px}
+.ch:active{background:var(--soft);transform:none}
+.name{font-size:calc(var(--reading)*1.25);line-height:1.35;letter-spacing:-.02em}
+.sub,.go{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.go{background:var(--soft);color:var(--txt);margin-top:12px}
+.live{background:var(--accent);color:#f4e8e2;font-size:12px;font-weight:700}
+.weekly{background:var(--card);border-color:var(--line);padding:16px;margin-top:20px}
+.weekly h2{font-size:calc(var(--reading)*1.05);color:var(--gold);font-weight:700}
+.weekly-meta,.weekly-note,.notice{font-size:calc(var(--reading)*.8125);line-height:1.7}
+.weekly-source{color:var(--gold);display:inline-flex;align-items:center;min-height:44px}
+.weekly-winner{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;margin:0;border-bottom:1px solid var(--line)}
+.weekly-channel{grid-column:1;font-size:calc(var(--reading)*.8125);font-weight:600;color:var(--muted)}
+.weekly-program{grid-column:1;grid-row:2;font-size:var(--reading)!important;line-height:1.65;font-weight:600}
+.weekly-value{grid-column:2;grid-row:1 / 3;align-self:center;font-size:calc(var(--reading)*1.25);color:var(--gold);font-weight:650}
+.weekly-badge{background:var(--soft);color:var(--gold);font-size:12px;font-weight:600;margin-bottom:8px}
+.weekly-top{border-color:var(--line)}
+.lab-link{font-size:calc(var(--reading)*.875);min-height:48px}
+.topbar{background:var(--bg);flex-wrap:wrap}
+.back,.external,.channel,.blocked a,.ios-open{background:var(--soft);color:var(--txt);border:1px solid var(--line);min-height:44px}
+.back{width:44px;height:44px}
+.external{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.title{font-size:calc(var(--reading)*1.0625);font-weight:700}
+.status{font-size:calc(var(--reading)*.8125)}
+.channels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;overflow:visible}
+.channel{min-width:0;height:auto;min-height:44px;padding:9px 4px;font-size:calc(var(--reading)*.875);border-radius:10px;font-weight:650}
+.channel.active{background:var(--soft);color:var(--txt);border:2px solid var(--focus);box-shadow:none}
+.channel.active:after{display:none}
+.helper,.blocked,.ios-card{background:var(--panel);color:var(--muted)}
+.helper{font-size:calc(var(--reading)*.8125);line-height:1.5}
+.helper b{color:var(--txt)}
+.fallback{min-height:44px;font-size:13px;color:var(--focus)}
+.blocked span,.blocked a,.ios-text,.ios-tip{font-size:calc(var(--reading)*.8125);line-height:1.6}
+.blocked span{color:var(--muted)}
+.ios-panel{background:var(--bg);overflow-y:auto}
+.ios-name{color:var(--txt)}
+.ios-tip{color:var(--muted)}
+.app{grid-template-rows:auto auto auto auto minmax(180px,1fr);height:100%;overflow-y:auto}
+.app>.comfort-tools{margin:0;padding:8px 12px;background:var(--bg)}
+@media(max-width:600px){.channels{grid-template-columns:repeat(3,minmax(0,1fr))}.wrap{padding-left:14px;padding-right:14px}.blocked{position:static;border-radius:0}.frame-wrap{display:flex;flex-direction:column}.frame-wrap iframe{flex:1;min-height:180px;height:auto}.ios-panel{padding:12px}.ios-card{padding:18px 14px}}
+@media(max-width:359px){.wrap{padding-left:10px;padding-right:10px}.ch{padding:12px;min-height:116px}.name{font-size:calc(var(--reading)*1.125)}.grid{gap:9px}.weekly{padding:12px}.external{white-space:normal}.titles{flex-basis:110px}}
+@media(orientation:landscape) and (max-height:600px){.channels{grid-template-columns:repeat(6,minmax(0,1fr))}.channel{min-height:44px}.ch{min-height:112px}.sub,.go,.notice,.desc{font-size:calc(var(--reading)*.8125)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Compact overview: six channels and dated rankings before optional settings. */
+.wrap{max-width:640px;padding:12px 14px 16px}
+.top{margin-bottom:10px}h1{font-size:clamp(18px,5vw,24px)}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ch{min-height:72px;padding:10px;border-radius:12px}
+.name{font-size:calc(var(--reading)*1.0625);line-height:1.3}
+.sub{display:none}.go{font-size:12px;margin-top:6px;padding:3px 6px;background:transparent}
+.weekly-badge{display:none}
+.weekly{margin:12px 0 10px;padding:12px;border-radius:12px}
+.weekly h2{font-size:calc(var(--reading)*.9375);margin:0 0 4px}
+.weekly-meta{font-size:12px;line-height:1.5;margin:4px 0 6px}
+.weekly-winner{grid-template-columns:58px minmax(0,1fr) 50px;gap:6px;min-height:36px;padding:7px 0;align-items:center}
+.weekly-channel{grid-column:1;grid-row:1;font-size:12px;line-height:1.4}
+.weekly-program{grid-column:2;grid-row:1;font-size:calc(var(--reading)*.8125)!important;line-height:1.5}
+.weekly-value{grid-column:3;grid-row:1;font-size:calc(var(--reading)*1);text-align:right}
+.weekly-note{margin:2px 0 0;font-size:12px}.weekly-source{min-height:32px;font-size:12px;line-height:1.5}
+.display-settings{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:8px}
+.display-settings summary{min-height:44px;padding:10px 12px;font-size:14px;cursor:pointer}
+.display-settings .comfort-tools{padding:0 10px;margin-bottom:10px}
+.display-settings .install{width:calc(100% - 20px);margin:0 10px 10px;font-size:14px}
+.display-settings .ios{margin:0 10px 10px}
+.notice,.lab-link{display:none}
+@media(max-width:359px){.wrap{padding:9px 10px 12px}.top{margin-bottom:8px}.grid{gap:7px}.ch{min-height:66px;padding:8px}.name{font-size:calc(var(--reading)*1)}.weekly{padding:10px;margin-top:10px}.weekly-winner{grid-template-columns:49px minmax(0,1fr) 45px;gap:5px;padding:5px 0;min-height:34px}.weekly-channel{font-size:11px}.weekly-program{font-size:calc(var(--reading)*.8125)!important}}
+:root[data-large="true"] .weekly-program{font-size:var(--reading)!important}
+:root[data-large="true"] .weekly-channel{font-size:14px}
+:root[data-large="true"] .ch{min-height:82px}
+
+
+.weekly-program{color:var(--txt);text-decoration:none}
+a.weekly-program{display:block;min-height:44px;align-content:center}
+a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
+.new-badge{display:inline-block;vertical-align:middle;margin-right:5px;padding:1px 4px;border-radius:4px;background:var(--soft);color:var(--gold);border:1px solid var(--line);font-size:9px;font-weight:650;line-height:1.4}
+.weekly-note::before{content:'NEW: 최신 확인 순위 · 클릭 시 공식 온에어';display:block;color:var(--muted);font-size:11px}
+@media(max-width:600px){.weekly-winner{padding:2px 0}.weekly-source{min-height:28px}}
+</style>
+<script>
+(() => {
+  const root=document.documentElement, themes=['soft','night','day'];
+  let theme='soft', large=false;
+  try { const saved=JSON.parse(localStorage.getItem('companda-display')||'{}'); if(themes.includes(saved.theme))theme=saved.theme; large=saved.large===true; } catch {}
+  function apply(){
+    root.dataset.theme=theme;root.dataset.large=String(large);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',{soft:'#191d22',night:'#11161b',day:'#f2efe7'}[theme]);
+    const mode=document.getElementById('comfortTheme'), size=document.getElementById('comfortSize');
+    if(mode)mode.textContent='화면 · '+{soft:'편안한 회색',night:'야간',day:'밝은 낮'}[theme];
+    if(size){size.textContent=large?'글자 · 크게':'글자 · 기본';size.setAttribute('aria-pressed',String(large));}
+  }
+  function save(){try{localStorage.setItem('companda-display',JSON.stringify({theme,large}))}catch{}apply()}
+  apply();
+  document.addEventListener('DOMContentLoaded',()=>{
+    apply();
+    document.getElementById('comfortTheme')?.addEventListener('click',()=>{theme=themes[(themes.indexOf(theme)+1)%themes.length];save()});
+    document.getElementById('comfortSize')?.addEventListener('click',()=>{large=!large;save()});
+  });
+})();
+</script>
 </head>
 <body>
   <main class="wrap">
-    <div class="top"><h1>컴판다 지상파 ON AIR</h1><span class="live">LIVE</span></div>
-    <p class="desc">갤럭시·아이폰 홈 화면에 설치해서 KBS·MBC·SBS·EBS 공식 온에어로 바로 이동합니다.</p>
-    <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
-    <div id="iosGuide" class="ios"><strong>아이폰 최적화 모드</strong><br>채널을 누르면 방송사 공식 온에어가 Safari 새 화면으로 바로 열립니다.<span class="tiny">컴판다 ON AIR 앱은 종료되지 않으므로 뒤로 다시 실행할 필요가 없습니다.</span></div>
+    <div class="top"><h1>컴판다 ON AIR</h1><span class="live">LIVE</span></div>
 
-    <section class="grid" aria-label="지상파 온에어">
+    <section class="grid" aria-label="방송사 온에어">
       <a class="ch" data-channel="kbs1" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" data-viewer="./viewer.html?ch=kbs1" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="kbs2" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" data-viewer="./viewer.html?ch=kbs2" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="mbc" data-official="https://onair.imbc.com/" data-viewer="./viewer.html?ch=mbc" href="https://onair.imbc.com/" target="_blank" rel="noopener"><div><div class="name">MBC</div><div class="sub">iMBC 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
+      <a class="ch" data-channel="ytn" data-direct="1" data-official="https://www.ytn.co.kr/_hd/hd_main.html" data-viewer="./viewer.html?ch=ytn" href="https://www.ytn.co.kr/_hd/hd_main.html" target="_blank" rel="noopener"><div><div class="name">YTN</div><div class="sub">24시간 뉴스 공식 생방송</div></div><span class="go">바로보기 ↗</span></a>
       <a class="ch" data-channel="sbs" data-official="https://www.sbs.co.kr/ko/live" data-viewer="./viewer.html?ch=sbs" href="https://www.sbs.co.kr/ko/live" target="_blank" rel="noopener"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="ebs1" data-official="https://www.ebs.co.kr/onair?channelCodeString=tv" data-viewer="./viewer.html?ch=ebs1" href="https://www.ebs.co.kr/onair?channelCodeString=tv" target="_blank" rel="noopener"><div><div class="name">EBS 1</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="ebs2" data-official="https://www.ebs.co.kr/onair?channelCodeString=tv2" data-viewer="./viewer.html?ch=ebs2" href="https://www.ebs.co.kr/onair?channelCodeString=tv2" target="_blank" rel="noopener"><div><div class="name">EBS 2</div><div class="sub">EBS 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
+      <a class="ch" data-channel="mbcgn" data-direct="1" data-official="https://mbcgn.kr/" data-viewer="./viewer.html?ch=mbcgn" href="https://mbcgn.kr/" target="_blank" rel="noopener"><div><div class="name">MBC경남</div><div class="sub">창원 · 공식 홈페이지</div></div><span class="go">창원방송 ↗</span></a>
+      <a class="ch" data-channel="knn" data-direct="1" data-official="https://www.knn.co.kr/onair/?channel=tv" data-viewer="./viewer.html?ch=knn" href="https://www.knn.co.kr/onair/?channel=tv" target="_blank" rel="noopener"><div><div class="name">KNN 부산</div><div class="sub">부산·경남 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
     </section>
 
     <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
       <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
       <p id="weeklyStatus" class="weekly-meta" role="status">공식 주간 시청률 확인 중…</p>
       <div id="weeklyWinners"></div>
-      <p class="weekly-note">각 채널에서 주간 시청률이 가장 높은 프로그램입니다.<br>전국 가구 기준 · 공개 TOP 20 기준 · 공동 1위 포함<br>출처: <a class="weekly-source" href="https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&amp;area=00" target="_blank" rel="noopener">닐슨코리아 공식 주간 순위 ↗</a></p>
+      <p class="weekly-note"><a class="weekly-source" href="https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&amp;area=00" target="_blank" rel="noopener">출처: 닐슨코리아 · 전국 가구 TOP 20 ↗</a></p>
       <noscript><p class="weekly-meta">위 공식 주간 순위 링크에서 시청률을 확인하세요.</p></noscript>
     </section>
 
+    <details class="display-settings"><summary>화면·글자 설정 / 앱 설치</summary><div class="comfort-tools" role="group" aria-label="화면과 글자 설정"><button id="comfortTheme" type="button" aria-label="화면 색상 변경: 편안한 회색, 야간, 밝은 낮">화면 · 편안한 회색</button><button id="comfortSize" type="button" aria-pressed="false">글자 · 기본</button></div>    <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
+    <div id="iosGuide" class="ios"><strong>아이폰 최적화 모드</strong><br>채널을 누르면 방송사 공식 온에어가 Safari 새 화면으로 바로 열립니다.<span class="tiny">컴판다 ON AIR 앱은 종료되지 않으므로 뒤로 다시 실행할 필요가 없습니다.</span></div>
+</details>
     <div class="notice">※ 아이폰은 방송사 보안정책상 앱 내부 표시가 제한될 수 있어 공식 Safari 화면을 우선 사용합니다. 갤럭시·PC에서는 컴판다 채널 전환 화면을 사용할 수 있습니다.</div>
     <a class="lab-link" href="./devices.html">📱 기종별 화면 테스트 · Device Lab</a>
   </main>
@@ -69,7 +190,7 @@ const params=new URLSearchParams(location.search);if(params.get('preview')==='1'
 let deferredPrompt=null;const installBtn=document.getElementById('installBtn');const iosGuide=document.getElementById('iosGuide');const ua=navigator.userAgent||'';const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const isSamsung=/SamsungBrowser|SM-/i.test(ua);const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
 function applyViewportClass(){const w=Math.round(window.visualViewport?.width||window.innerWidth);const h=Math.round(window.visualViewport?.height||window.innerHeight);const root=document.documentElement;root.dataset.viewport=w<=360?'compact':w<=430?'standard':w<=600?'large-phone':'fold-open';root.dataset.orientation=w>h?'landscape':'portrait'}applyViewportClass();window.addEventListener('resize',applyViewportClass,{passive:true});window.visualViewport?.addEventListener('resize',applyViewportClass,{passive:true});
 if(isIOS&&params.get('preview')!=='1')iosGuide.style.display='block';
-document.querySelectorAll('.ch').forEach(a=>{if(!isIOS){a.href=a.dataset.viewer;a.removeAttribute('target')}a.addEventListener('click',()=>{try{localStorage.setItem('companda-last-channel',a.dataset.channel)}catch(e){}})});
+document.querySelectorAll('.ch').forEach(a=>{if(!isIOS&&a.dataset.direct!=='1'){a.href=a.dataset.viewer;a.removeAttribute('target')}a.addEventListener('click',()=>{try{localStorage.setItem('companda-last-channel',a.dataset.channel)}catch(e){}})});
 if(isStandalone||params.get('preview')==='1')installBtn.style.display='none';
 if(isIOS&&!isStandalone&&params.get('preview')!=='1'){installBtn.textContent='🍎 아이폰 홈 화면에 추가';installBtn.addEventListener('click',()=>iosGuide.scrollIntoView({behavior:'smooth',block:'center'}))}else if(params.get('preview')!=='1'){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block'});installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else if(isSamsung)alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.')})}
 if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
