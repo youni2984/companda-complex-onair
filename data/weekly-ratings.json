@@ -14,10 +14,10 @@
   ],
   "channelWinners": [
     {
-      "channel": "KBS1",
-      "channelId": "kbs1",
-      "program": "KBS1일일드라마(엄마가미쳤어요)",
-      "rating": 8
+      "channel": "SBS",
+      "channelId": "sbs",
+      "program": "SBS금토드라마(닥터X하얀마피아의시대)",
+      "rating": 16.8
     },
     {
       "channel": "KBS2",
@@ -26,16 +26,16 @@
       "rating": 15.5
     },
     {
+      "channel": "KBS1",
+      "channelId": "kbs1",
+      "program": "KBS1일일드라마(엄마가미쳤어요)",
+      "rating": 8.0
+    },
+    {
       "channel": "MBC",
       "channelId": "mbc",
       "program": "MBC스포츠KBO리그(두산:LG)",
       "rating": 6.8
-    },
-    {
-      "channel": "SBS",
-      "channelId": "sbs",
-      "program": "SBS금토드라마(닥터X하얀마피아의시대)",
-      "rating": 16.8
     }
   ]
 }
