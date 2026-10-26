@@ -1,6 +1,6 @@
 {
-  "periodStart": "2026-10-12",
-  "periodEnd": "2026-10-18",
+  "periodStart": "2026-10-19",
+  "periodEnd": "2026-10-25",
   "scope": "전국 지상파 · 가구 시청률",
   "sourceName": "닐슨코리아",
   "sourceUrl": "https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&area=00",
@@ -9,7 +9,7 @@
       "channel": "SBS",
       "channelId": "sbs",
       "program": "SBS금토드라마(닥터X하얀마피아의시대)",
-      "rating": 16.8
+      "rating": 18.4
     }
   ],
   "channelWinners": [
@@ -17,25 +17,25 @@
       "channel": "SBS",
       "channelId": "sbs",
       "program": "SBS금토드라마(닥터X하얀마피아의시대)",
-      "rating": 16.8
+      "rating": 18.4
     },
     {
       "channel": "KBS2",
       "channelId": "kbs2",
       "program": "KBS2주말드라마(사랑이온다)",
-      "rating": 15.5
-    },
-    {
-      "channel": "KBS1",
-      "channelId": "kbs1",
-      "program": "KBS1일일드라마(엄마가미쳤어요)",
-      "rating": 8.0
+      "rating": 15.8
     },
     {
       "channel": "MBC",
       "channelId": "mbc",
-      "program": "MBC스포츠KBO리그(두산:LG)",
-      "rating": 6.8
+      "program": "MBC스포츠KBO리그(KIA:LG)",
+      "rating": 7.0
+    },
+    {
+      "channel": "KBS1",
+      "channelId": "kbs1",
+      "program": "인간극장",
+      "rating": 7.0
     }
   ]
 }
