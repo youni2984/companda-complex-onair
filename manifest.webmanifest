@@ -1,10 +1,10 @@
 {
-  "name": "컴판다 지상파 ON AIR",
-  "short_name": "컴판다 온에어",
+  "name": "컴판다 ON TV",
+  "short_name": "컴판다 TV",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0e1116",
-  "theme_color": "#0e1116",
+  "background_color": "#171c21",
+  "theme_color": "#171c21",
   "lang": "ko-KR",
   "icons": [
     {"src":"./icon-192.png","sizes":"192x192","type":"image/png"},
