@@ -1,317 +1,65 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
-  <meta name="theme-color" content="#0e1116">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="컴판다 온에어">
-  <meta name="format-detection" content="telephone=no">
-  <link rel="apple-touch-icon" href="./icon-180.png">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <title>컴판다 온에어</title>
-  <style>
-    :root{color-scheme:dark;--bg:#0e1116;--card:#171c24;--line:#29313d;--txt:#f5f7fa;--muted:#9da8b6;--accent:#e53935;--safe-t:env(safe-area-inset-top,0px);--safe-r:env(safe-area-inset-right,0px);--safe-b:env(safe-area-inset-bottom,0px);--safe-l:env(safe-area-inset-left,0px);--page-x:clamp(10px,3.6vw,22px);--gap:clamp(8px,2.6vw,14px);--radius:clamp(14px,4vw,20px)}
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html{background:var(--bg);text-size-adjust:100%;-webkit-text-size-adjust:100%}
-    html,body{margin:0;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
-    body{min-width:280px;min-height:100vh;min-height:100svh;min-height:100dvh;background:var(--bg);padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);overscroll-behavior-y:none}
-    button,a{touch-action:manipulation}.wrap{width:100%;max-width:980px;margin:0 auto;padding:clamp(12px,3vh,22px) var(--page-x) max(18px,var(--safe-b))}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 clamp(9px,2vh,15px)}
-    h1{font-size:clamp(19px,5.8vw,27px);line-height:1.15;letter-spacing:-.045em;margin:0;white-space:nowrap}.live{flex:0 0 auto;font-size:clamp(10px,2.8vw,12px);font-weight:900;padding:6px 9px;border-radius:999px;background:var(--accent)}
-    .desc{color:var(--muted);font-size:clamp(12px,3.4vw,14px);line-height:1.48;margin:0 0 clamp(10px,2vh,14px)}
-    .install{width:100%;min-height:48px;border:1px solid var(--line);background:#202734;color:white;border-radius:14px;padding:11px 14px;font-size:clamp(14px,4vw,16px);font-weight:800;margin-bottom:clamp(10px,2vh,15px)}
-    .ios{display:none;background:#141922;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#d8dee8;font-size:14px;line-height:1.5;margin-bottom:12px}.ios strong{color:#fff}.ios .tiny{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
-    .ch{display:flex;flex-direction:column;justify-content:space-between;min-width:0;min-height:clamp(94px,15vh,126px);padding:clamp(12px,3.5vw,17px);border-radius:var(--radius);background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);transition:.15s transform,.15s border-color,.15s background}
-    .ch:active{transform:scale(.975);background:#1b222c}.ch:focus-visible,.install:focus-visible,.lab-link:focus-visible{outline:2px solid #fff;outline-offset:2px}.name{font-size:clamp(16px,5vw,22px);font-weight:900;line-height:1.08;letter-spacing:-.035em;overflow-wrap:anywhere}.sub{font-size:clamp(10px,3vw,13px);line-height:1.3;color:var(--muted);margin-top:5px}.go{align-self:flex-end;margin-top:12px;font-size:clamp(10px,2.8vw,13px);font-weight:800;color:#fff;background:#252d39;border-radius:999px;padding:6px 8px;white-space:nowrap}
-    .notice{margin-top:clamp(12px,2.5vh,17px);border-top:1px solid var(--line);padding-top:11px;color:var(--muted);font-size:clamp(10px,2.8vw,12px);line-height:1.5}.lab-link{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;min-height:44px;border:1px solid var(--line);background:#151b23;color:#dfe5ec;border-radius:13px;text-decoration:none;font-size:13px;font-weight:850}
-    html[data-preview="1"] .install,html[data-preview="1"] .ios,html[data-preview="1"] .notice,html[data-preview="1"] .lab-link{display:none!important}html[data-preview="1"] .wrap{padding-bottom:10px}
-    @media(max-width:359px){:root{--page-x:9px;--gap:7px}.wrap{padding-top:10px}h1{font-size:18px}.desc{font-size:11px;line-height:1.4}.ch{min-height:90px;padding:10px;border-radius:13px}.name{font-size:15px}.sub{font-size:9.5px}.go{margin-top:8px;padding:5px 7px}}
-    @media(max-height:700px) and (orientation:portrait){.wrap{padding-top:9px;padding-bottom:12px}.top{margin-bottom:7px}.desc{line-height:1.35;margin-bottom:8px}.install{min-height:44px;margin-bottom:8px;padding:8px 12px}.ch{min-height:84px;padding-top:10px;padding-bottom:10px}.go{margin-top:7px}.notice{margin-top:9px;padding-top:8px;line-height:1.35}}
-    @media(min-width:431px) and (max-width:600px){.grid{gap:12px}.ch{min-height:118px}}@media(min-width:601px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wrap{padding-left:22px;padding-right:22px}.ch{min-height:138px}h1{font-size:28px}}
-    @media(orientation:landscape) and (max-height:600px){.wrap{max-width:1100px;padding-top:8px;padding-bottom:8px}.top{margin-bottom:6px}h1{font-size:20px}.desc{font-size:11px;line-height:1.3;margin-bottom:6px}.install{min-height:40px;padding:7px 12px;margin-bottom:7px;font-size:13px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ch{min-height:82px;padding:10px 12px;border-radius:13px}.name{font-size:16px}.sub{font-size:10px}.go{font-size:10px;margin-top:6px;padding:5px 7px}.notice{margin-top:7px;padding-top:6px;font-size:9px;line-height:1.3}}
-    @media(horizontal-viewport-segments:2){.wrap{max-width:none;padding-left:max(var(--page-x),var(--safe-l));padding-right:max(var(--page-x),var(--safe-r))}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-    .weekly{margin:16px 0 14px;padding:15px;border:1px solid #66542e;border-radius:16px;background:linear-gradient(135deg,#272219,#171c24)}
-    .weekly h2{margin:0 0 8px;font-size:clamp(14px,4vw,18px);line-height:1.4;color:#ffe0a1}.weekly-meta,.weekly-note{margin:6px 0;color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}.weekly-note{margin-bottom:0}.weekly-source{color:#e9cb8c;text-underline-offset:3px}.weekly-winner{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:9px;margin:10px 0}.weekly-channel{font-weight:850;color:#ffe0a1;font-size:13px}.weekly-program{font-size:clamp(14px,4vw,18px);line-height:1.5;overflow-wrap:anywhere}.weekly-value{font-size:clamp(21px,6vw,29px);color:#ffe0a1;font-variant-numeric:tabular-nums;white-space:nowrap}.weekly-top{border-color:#9c7b37}.weekly-badge{display:block;width:fit-content;max-width:100%;padding:4px 6px;margin-bottom:9px;border-radius:6px;background:#493c20;color:#ffe0a1;font-size:10px;font-weight:800;line-height:1.4;overflow-wrap:anywhere}
-  
-/* Comfortable reading and touch controls */
-:root{--bg:#191d22;--card:#232a31;--panel:#232a31;--line:#46505b;--txt:#e4e4df;--muted:#bbc2c9;--accent:#7c3436;--soft:#2c353e;--gold:#dcc591;--focus:#bed5dc;--reading:1rem}
-:root[data-theme="night"]{--bg:#11161b;--card:#1c242c;--panel:#1c242c;--line:#424e59;--txt:#d6dcd9;--muted:#b3bfc7;--soft:#27323c;--gold:#cbbd99;--focus:#b6cad5}
-:root[data-theme="day"]{color-scheme:light;--bg:#f2efe7;--card:#faf7ef;--panel:#faf7ef;--line:#8e9694;--txt:#263331;--muted:#4c5b57;--soft:#e5e6dc;--gold:#65512d;--focus:#315c58;--accent:#88514a}
-:root[data-large="true"]{--reading:1.125rem}
-html{scroll-padding:16px}
-body{color:var(--txt);line-height:1.6}
-h1{white-space:normal;font-size:clamp(1.15rem,5.2vw,1.7rem);line-height:1.35}
-a,button{-webkit-tap-highlight-color:rgba(180,200,200,.15)}
-button{font-family:inherit;cursor:pointer}
-a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus)!important;outline-offset:3px}
-.comfort-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
-.comfort-tools button{flex:1 1 130px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--soft);color:var(--txt);font-size:calc(var(--reading)*.875);font-weight:650;padding:9px 12px;line-height:1.4}
-.comfort-tools button[aria-pressed="true"]{border-color:var(--focus)}
-.desc{font-size:calc(var(--reading)*.875);line-height:1.65}
-.install,.ios,.lab-link{background:var(--card);color:var(--txt);border-color:var(--line)}
-.install{font-size:var(--reading);min-height:48px}
-.ios{font-size:calc(var(--reading)*.875)}
-.ios strong,.ios .tiny{color:var(--txt)}
-.ios .tiny{font-size:calc(var(--reading)*.8125);line-height:1.6}
-.grid{gap:12px}
-.ch{background:var(--card);color:var(--txt);border-color:var(--line);min-height:124px;padding:16px}
-.ch:active{background:var(--soft);transform:none}
-.name{font-size:calc(var(--reading)*1.25);line-height:1.35;letter-spacing:-.02em}
-.sub,.go{font-size:calc(var(--reading)*.8125);line-height:1.5}
-.go{background:var(--soft);color:var(--txt);margin-top:12px}
-.live{background:var(--accent);color:#f4e8e2;font-size:12px;font-weight:700}
-.weekly{background:var(--card);border-color:var(--line);padding:16px;margin-top:20px}
-.weekly h2{font-size:calc(var(--reading)*1.05);color:var(--gold);font-weight:700}
-.weekly-meta,.weekly-note,.notice{font-size:calc(var(--reading)*.8125);line-height:1.7}
-.weekly-source{color:var(--gold);display:inline-flex;align-items:center;min-height:44px}
-.weekly-winner{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;margin:0;border-bottom:1px solid var(--line)}
-.weekly-channel{grid-column:1;font-size:calc(var(--reading)*.8125);font-weight:600;color:var(--muted)}
-.weekly-program{grid-column:1;grid-row:2;font-size:var(--reading)!important;line-height:1.65;font-weight:600}
-.weekly-value{grid-column:2;grid-row:1 / 3;align-self:center;font-size:calc(var(--reading)*1.25);color:var(--gold);font-weight:650}
-.weekly-badge{background:var(--soft);color:var(--gold);font-size:12px;font-weight:600;margin-bottom:8px}
-.weekly-top{border-color:var(--line)}
-.lab-link{font-size:calc(var(--reading)*.875);min-height:48px}
-.topbar{background:var(--bg);flex-wrap:wrap}
-.back,.external,.channel,.blocked a,.ios-open{background:var(--soft);color:var(--txt);border:1px solid var(--line);min-height:44px}
-.back{width:44px;height:44px}
-.external{font-size:calc(var(--reading)*.8125);line-height:1.5}
-.title{font-size:calc(var(--reading)*1.0625);font-weight:700}
-.status{font-size:calc(var(--reading)*.8125)}
-.channels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;overflow:visible}
-.channel{min-width:0;height:auto;min-height:44px;padding:9px 4px;font-size:calc(var(--reading)*.875);border-radius:10px;font-weight:650}
-.channel.active{background:var(--soft);color:var(--txt);border:2px solid var(--focus);box-shadow:none}
-.channel.active:after{display:none}
-.helper,.blocked,.ios-card{background:var(--panel);color:var(--muted)}
-.helper{font-size:calc(var(--reading)*.8125);line-height:1.5}
-.helper b{color:var(--txt)}
-.fallback{min-height:44px;font-size:13px;color:var(--focus)}
-.blocked span,.blocked a,.ios-text,.ios-tip{font-size:calc(var(--reading)*.8125);line-height:1.6}
-.blocked span{color:var(--muted)}
-.ios-panel{background:var(--bg);overflow-y:auto}
-.ios-name{color:var(--txt)}
-.ios-tip{color:var(--muted)}
-.app{grid-template-rows:auto auto auto auto minmax(180px,1fr);height:100%;overflow-y:auto}
-.app>.comfort-tools{margin:0;padding:8px 12px;background:var(--bg)}
-@media(max-width:600px){.channels{grid-template-columns:repeat(3,minmax(0,1fr))}.wrap{padding-left:14px;padding-right:14px}.blocked{position:static;border-radius:0}.frame-wrap{display:flex;flex-direction:column}.frame-wrap iframe{flex:1;min-height:180px;height:auto}.ios-panel{padding:12px}.ios-card{padding:18px 14px}}
-@media(max-width:359px){.wrap{padding-left:10px;padding-right:10px}.ch{padding:12px;min-height:116px}.name{font-size:calc(var(--reading)*1.125)}.grid{gap:9px}.weekly{padding:12px}.external{white-space:normal}.titles{flex-basis:110px}}
-@media(orientation:landscape) and (max-height:600px){.channels{grid-template-columns:repeat(6,minmax(0,1fr))}.channel{min-height:44px}.ch{min-height:112px}.sub,.go,.notice,.desc{font-size:calc(var(--reading)*.8125)}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-
-
-/* Compact overview: six channels and dated rankings before optional settings. */
-.wrap{max-width:640px;padding:12px 14px 16px}
-.top{margin-bottom:10px}h1{font-size:clamp(18px,5vw,24px)}
-.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.ch{min-height:72px;padding:10px;border-radius:12px}
-.name{font-size:calc(var(--reading)*1.0625);line-height:1.3}
-.sub{display:none}.go{font-size:12px;margin-top:6px;padding:3px 6px;background:transparent}
-.weekly-badge{display:none}
-.weekly{margin:12px 0 10px;padding:12px;border-radius:12px}
-.weekly h2{font-size:calc(var(--reading)*.9375);margin:0 0 4px}
-.weekly-meta{font-size:12px;line-height:1.5;margin:4px 0 6px}
-.weekly-winner{grid-template-columns:58px minmax(0,1fr) 50px;gap:6px;min-height:36px;padding:7px 0;align-items:center}
-.weekly-channel{grid-column:1;grid-row:1;font-size:12px;line-height:1.4}
-.weekly-program{grid-column:2;grid-row:1;font-size:calc(var(--reading)*.8125)!important;line-height:1.5}
-.weekly-value{grid-column:3;grid-row:1;font-size:calc(var(--reading)*1);text-align:right}
-.weekly-note{margin:2px 0 0;font-size:12px}.weekly-source{min-height:32px;font-size:12px;line-height:1.5}
-.display-settings{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:8px}
-.display-settings summary{min-height:44px;padding:10px 12px;font-size:14px;cursor:pointer}
-.display-settings .comfort-tools{padding:0 10px;margin-bottom:10px}
-.display-settings .install{width:calc(100% - 20px);margin:0 10px 10px;font-size:14px}
-.display-settings .ios{margin:0 10px 10px}
-.notice,.lab-link{display:none}
-@media(max-width:359px){.wrap{padding:9px 10px 12px}.top{margin-bottom:8px}.grid{gap:7px}.ch{min-height:66px;padding:8px}.name{font-size:calc(var(--reading)*1)}.weekly{padding:10px;margin-top:10px}.weekly-winner{grid-template-columns:49px minmax(0,1fr) 45px;gap:5px;padding:5px 0;min-height:34px}.weekly-channel{font-size:11px}.weekly-program{font-size:calc(var(--reading)*.8125)!important}}
-:root[data-large="true"] .weekly-program{font-size:var(--reading)!important}
-:root[data-large="true"] .weekly-channel{font-size:14px}
-:root[data-large="true"] .ch{min-height:82px}
-
-
-.weekly-program{color:var(--txt);text-decoration:none}
-a.weekly-program{display:block;min-height:44px;align-content:center}
-a.weekly-program:hover{text-decoration:underline;text-underline-offset:3px}
-.new-badge{display:inline-block;vertical-align:middle;margin-right:5px;padding:1px 4px;border-radius:4px;background:var(--soft);color:var(--gold);border:1px solid var(--line);font-size:9px;font-weight:650;line-height:1.4}
-.weekly-note::before{content:'NEW: 최신 확인 순위 · 드라마는 1회부터 정주행';display:block;color:var(--muted);font-size:11px}
-@media(max-width:600px){.weekly-winner{padding:2px 0}.weekly-source{min-height:28px}}
-.replay-hint{display:inline;color:var(--gold);font-size:11px;white-space:nowrap;font-weight:500}
-
-.sbs-vod{margin:10px 0;border:1px solid var(--line);border-radius:12px;background:var(--card)}
-.sbs-vod summary{min-height:48px;padding:12px;font-size:var(--reading);font-weight:650;cursor:pointer}
-.sbs-vod summary>span{float:right;font-size:12px;color:var(--muted);font-weight:500}
-.sbs-vod-body{padding:0 12px 12px}.sbs-vod-note{font-size:12px;color:var(--muted);line-height:1.65;margin:6px 0 10px}
-.sbs-vod-filters{display:flex;gap:8px;flex-wrap:wrap}.sbs-vod-filters label{flex:1;min-width:100px;font-size:13px;color:var(--muted)}
-.sbs-vod-filters input,.sbs-vod-filters select{display:block;width:100%;min-height:44px;margin-top:4px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--txt);font:inherit;font-size:16px;padding:8px;box-sizing:border-box}
-.sbs-vod-list{max-height: min(50svh,420px);overflow-y:auto;overscroll-behavior:contain}
-.sbs-vod-item{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;padding:10px 2px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--txt);font-size:calc(var(--reading)*.875);line-height:1.6}
-.sbs-vod-item[hidden]{display:none}.sbs-vod-label{flex:0 0 auto;font-size:11px;color:var(--gold)}
-.sbs-vod-all{display:flex;align-items:center;min-height:44px;color:var(--gold);font-size:13px}
-
-
-.content-banners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
-.content-banners button{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:48px;padding:11px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--txt);font:inherit;font-size:calc(var(--reading)*.875);font-weight:650;line-height:1.5;cursor:pointer;text-align:left}
-.content-banners button[aria-expanded="true"]{border-color:var(--focus);background:var(--soft)}
-.content-banners button[aria-expanded="true"]>span{transform:rotate(180deg)}
-.banner-panel[hidden]{display:none!important}
-.sbs-vod.banner-panel{padding-top:6px}
-.lotto-panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px}
-.lotto-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.lotto-panel-head strong{font-size:var(--reading);font-weight:650}
-.lotto-panel-head a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold);font-size:13px}
-#lottoFrame{display:block;width:100%;height:65svh;min-height:280px;max-height:680px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#171c21">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="컴판다 ON TV">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<title>컴판다 ON TV</title>
+<style>
+:root{color-scheme:dark;--bg:#171c21;--panel:#1e252b;--card:#232b32;--card2:#283139;--line:#3a454f;--txt:#dfe5e3;--muted:#9eaaa7;--soft:#8db1aa;--soft2:#6f948d;--warn:#b49b73;--danger:#a86f72;--safe-t:env(safe-area-inset-top,0px);--safe-r:env(safe-area-inset-right,0px);--safe-b:env(safe-area-inset-bottom,0px);--safe-l:env(safe-area-inset-left,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
+body{min-width:280px;min-height:100vh;padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);line-height:1.5}
+button,input,a{font:inherit}.app{max-width:1180px;margin:auto;padding:14px 12px 28px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:12px}.brand{flex:1;min-width:0}.brand h1{margin:0;font-size:clamp(22px,6vw,31px);letter-spacing:-.04em}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);background:var(--panel);color:var(--soft);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800}
+.hero{background:linear-gradient(145deg,#20272d,#1a2025);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}.hero .eyebrow{font-size:11px;color:var(--soft);font-weight:800;letter-spacing:.08em}.hero h2{font-size:clamp(19px,5vw,27px);margin:6px 0 7px;letter-spacing:-.035em}.hero p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.controls{position:sticky;top:0;z-index:10;background:rgba(23,28,33,.94);backdrop-filter:blur(12px);padding:8px 0 10px;margin-bottom:8px}.search{display:flex;gap:8px}.searchbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0 12px;min-height:48px}.searchbox input{width:100%;border:0;outline:0;background:transparent;color:var(--txt);font-size:15px}.searchbox input::placeholder{color:#7e8987}.clear{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:12px;min-width:48px}.tabs{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:10px 1px 2px}.tabs::-webkit-scrollbar{display:none}.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800}.tab.active{border-color:var(--soft2);background:#2a3738;color:#dce9e6}
+.recent-wrap{display:none;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px;margin:6px 0 12px}.recent-head,.list-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.recent-head h3,.list-head h3{margin:0;font-size:14px}.recent-clear{border:0;background:transparent;color:var(--muted);font-size:11px}.recent{display:flex;gap:8px;overflow-x:auto;padding-top:9px;scrollbar-width:none}.recent::-webkit-scrollbar{display:none}.recent button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--txt);border-radius:11px;padding:8px 10px;font-size:12px}
+.list-head{margin:8px 2px 10px}.count{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{position:relative;min-width:0;border:1px solid var(--line);background:var(--card);border-radius:15px;padding:12px;min-height:118px;display:flex;flex-direction:column;gap:8px}.card:active{background:var(--card2)}.row{display:flex;align-items:flex-start;gap:9px}.logo{width:40px;height:40px;border-radius:12px;background:#303b43;display:grid;place-items:center;font-size:11px;font-weight:900;color:#cbd6d3;flex:0 0 auto}.meta{min-width:0;flex:1}.name{font-size:15px;font-weight:850;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cat{font-size:11px;color:var(--muted);margin-top:3px}.status{font-size:10px;font-weight:800;color:var(--soft)}.status.blocked{color:var(--warn)}.actions{margin-top:auto;display:flex;gap:7px}.watch,.fav{min-height:38px;border:1px solid var(--line);border-radius:10px}.watch{flex:1;background:#2d383f;color:var(--txt);font-size:12px;font-weight:800}.fav{width:42px;background:transparent;color:#b6c1be;font-size:18px}.fav.on{color:#d7c590;background:#33352d}.note{margin:18px 2px 0;padding-top:13px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.7}.bottom{display:flex;justify-content:center;margin-top:14px}.device{color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:11px;background:var(--panel)}
+.empty{grid-column:1/-1;text-align:center;padding:42px 10px;color:var(--muted);border:1px dashed var(--line);border-radius:15px}
+@media(min-width:560px){.app{padding:18px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.card{min-height:126px}.hero{padding:20px}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}.card{min-height:134px}}
+@media(max-width:350px){.app{padding-left:8px;padding-right:8px}.grid{gap:7px}.card{padding:10px}.logo{width:34px;height:34px}.name{font-size:13px}.watch{font-size:11px}.tab{padding:7px 9px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
-<script>
-(() => {
-  const root=document.documentElement, themes=['soft','night','day'];
-  let theme='soft', large=false;
-  try { const saved=JSON.parse(localStorage.getItem('companda-display')||'{}'); if(themes.includes(saved.theme))theme=saved.theme; large=saved.large===true; } catch {}
-  function apply(){
-    root.dataset.theme=theme;root.dataset.large=String(large);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',{soft:'#191d22',night:'#11161b',day:'#f2efe7'}[theme]);
-    const mode=document.getElementById('comfortTheme'), size=document.getElementById('comfortSize');
-    if(mode)mode.textContent='화면 · '+{soft:'편안한 회색',night:'야간',day:'밝은 낮'}[theme];
-    if(size){size.textContent=large?'글자 · 크게':'글자 · 기본';size.setAttribute('aria-pressed',String(large));}
-  }
-  function save(){try{localStorage.setItem('companda-display',JSON.stringify({theme,large}))}catch{}apply()}
-  apply();
-  document.addEventListener('DOMContentLoaded',()=>{
-    apply();
-    document.getElementById('comfortTheme')?.addEventListener('click',()=>{theme=themes[(themes.indexOf(theme)+1)%themes.length];save()});
-    document.getElementById('comfortSize')?.addEventListener('click',()=>{large=!large;save()});
-  });
-})();
-</script>
 </head>
 <body>
-  <main class="wrap">
-    <div class="top"><h1>컴판다 ON AIR</h1><span class="live">LIVE</span></div>
-
-    <section class="grid" aria-label="방송사 온에어">
-      <a class="ch" data-channel="kbs1" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" data-viewer="./viewer.html?ch=kbs1" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=11&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 1TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="kbs2" data-official="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" data-viewer="./viewer.html?ch=kbs2" href="https://onair.kbs.co.kr/index.html?sname=onair&stype=live&ch_code=12&ch_type=globalList" target="_blank" rel="noopener"><div><div class="name">KBS 2TV</div><div class="sub">KBS 공식 ON AIR</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="ytn" data-direct="1" data-official="https://www.ytn.co.kr/_hd/hd_main.html" data-viewer="./viewer.html?ch=ytn" href="https://www.ytn.co.kr/_hd/hd_main.html" target="_blank" rel="noopener"><div><div class="name">YTN</div><div class="sub">24시간 뉴스 공식 생방송</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="sbs" data-official="https://www.sbs.co.kr/ko/live" data-viewer="./viewer.html?ch=sbs" href="https://www.sbs.co.kr/ko/live" target="_blank" rel="noopener"><div><div class="name">SBS</div><div class="sub">SBS 공식 라이브</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch" data-channel="mbc" data-direct="1" data-official="https://onair.imbc.com/" data-viewer="./viewer.html?ch=mbc" href="https://onair.imbc.com/" target="_blank" rel="noopener"><div><div class="name">MBC</div><div class="sub">전국 MBC 공식 온에어</div></div><span class="go">바로보기 ↗</span></a>
-      <a class="ch sports-link" data-channel="sports" data-direct="1" data-official="https://onairtv.kr/sports/" href="https://onairtv.kr/sports/" target="_blank" rel="noopener" aria-label="SPORTS 스포츠 페이지 열기"><div><div class="name">SPORTS</div><div class="sub">스포츠 방송</div></div><span class="go">바로가기 ↗</span></a>
-    </section>
-
-
-    <div class="content-banners" role="group" aria-label="콘텐츠 펼침 메뉴">
-      <button type="button" id="sbsBannerBtn" aria-controls="sbsFreeVod" aria-expanded="false">SBS 무료 VOD <span aria-hidden="true">▾</span></button>
-      <button type="button" id="lottoBannerBtn" aria-controls="lottoPanel" aria-expanded="false">동행복권 <span aria-hidden="true">▾</span></button>
-    </div>
-    <section class="sbs-vod banner-panel" id="sbsFreeVod" aria-label="SBS 무료 VOD 작품 목록" hidden>
-
-      <div class="sbs-vod-body">
-        <p class="sbs-vod-note">SBS 공식 무료 목록에서 확인한 30개 작품 · 2026.10.26<br>작품 선택 → 공식 회차 목록. 무료 회차·로그인 여부는 SBS 안내를 확인하세요.</p>
-        <div class="sbs-vod-filters"><label>작품 검색<input id="sbsVodSearch" type="search" placeholder="제목 입력" autocomplete="off"></label><label>장르<select id="sbsVodGenre"><option value="all">전체</option><option value="drama">드라마</option><option value="enter">예능</option></select></label></div>
-        <p id="sbsVodCount" class="sbs-vod-note" role="status">30개 작품</p>
-        <div class="sbs-vod-list" role="region" aria-label="SBS 무료 VOD 작품" tabindex="0"><a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/drromantic3/vods/76448?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부 3"><span>낭만닥터 김사부 3</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sunpung/vods/57054?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="순풍산부인과"><span>순풍산부인과</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/period/vods/51118?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="야인시대"><span>야인시대</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/nonstop/vods/53915?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="웬만해선 그들을 막을 수 없다"><span>웬만해선 그들을 막을 수 없다</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/giant/vods/55971?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="자이언트"><span>자이언트</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sisterisalive/vods/51798?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="언니는 살아있다"><span>언니는 살아있다</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/sweetheart/vods/52546?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="애인있어요"><span>애인있어요</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/right/vods/53858?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="똑바로 살아라"><span>똑바로 살아라</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/drromantic2/vods/63015?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부 2"><span>낭만닥터 김사부 2</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/doctorromantic/vods/51938?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="낭만닥터 김사부"><span>낭만닥터 김사부</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/wyws/vods/50566?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="당신이 잠든 사이에"><span>당신이 잠든 사이에</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/thefirstresponders/vods/75141?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="소방서 옆 경찰서"><span>소방서 옆 경찰서</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/women/vods/53875?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="여인천하"><span>여인천하</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/6dragons/vods/53124?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="육룡이 나르샤"><span>육룡이 나르샤</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/thejudgefromhell/vods/83958?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="지옥에서 온 판사"><span>지옥에서 온 판사</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/businessproposal/vods/70867?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="사내맞선"><span>사내맞선</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/drama/thefirstresponders2/vods/77169?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="소방서 옆 경찰서 그리고 국과수"><span>소방서 옆 경찰서 그리고 국과수</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/drama/flexxcop/vods/81375?order=old&amp;div=tv_drama_top" target="_blank" rel="noopener" data-genre="drama" data-title="재벌X형사"><span>재벌X형사</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/runningman/vods/55286?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="런닝맨"><span>런닝맨</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/kickagoal/vods/68129?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="골 때리는 그녀들"><span>골 때리는 그녀들</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/woori/vods/52018?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="미운 우리 새끼"><span>미운 우리 새끼</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/gayo/vods/54767?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="SBS 인기가요"><span>SBS 인기가요</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/dongsang2/vods/52006?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="동상이몽2_너는 내 운명"><span>동상이몽2_너는 내 운명</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/teum/vods/82255?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="틈만나면,"><span>틈만나면,</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/jungle/vods/50479?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="김병만의 정글의 법칙"><span>김병만의 정글의 법칙</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="https://programs.sbs.co.kr/enter/theballad/vods/85663?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="우리들의 발라드"><span>우리들의 발라드</span><span class="sbs-vod-label">부분무료 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/starbubu/vods/54605?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="백년손님"><span>백년손님</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/youngfire/vods/53750?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="불타는 청춘"><span>불타는 청춘</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/fantastic2/vods/52077?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="판타스틱 듀오 2"><span>판타스틱 듀오 2</span><span class="sbs-vod-label">무료 목록 ↗</span></a>
-<a class="sbs-vod-item" href="http://programs.sbs.co.kr/enter/roommate/vods/53719?order=old&amp;div=tv_enter_top" target="_blank" rel="noopener" data-genre="enter" data-title="룸메이트"><span>룸메이트</span><span class="sbs-vod-label">무료 목록 ↗</span></a></div>
-        <p id="sbsVodEmpty" class="sbs-vod-note" hidden>검색 결과가 없습니다.</p>
-        <a class="sbs-vod-all" href="https://www.sbs.co.kr/tv/free?category=drama" target="_blank" rel="noopener">SBS 공식 전체 무료 목록 ↗</a>
-      </div>
-    </section>
-
-    <section class="lotto-panel banner-panel" id="lottoPanel" aria-label="동행복권 정보" hidden>
-      <div class="lotto-panel-head"><strong>동행복권</strong><a href="https://onairtv.kr/lotto/" target="_blank" rel="noopener">페이지 바로가기 ↗</a></div>
-      <p class="sbs-vod-note">온에어TV의 복권 정보 페이지입니다. 아래 화면이 표시되지 않으면 ‘페이지 바로가기’를 눌러주세요.</p>
-      <iframe id="lottoFrame" title="온에어TV 동행복권 정보 페이지" data-src="https://onairtv.kr/lotto/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-    </section>
-
-    <section id="weeklyRanking" class="weekly" aria-labelledby="weeklyTitle" aria-busy="true">
-      <h2 id="weeklyTitle">🏆 방송사별 주간 시청률 1위</h2>
-      <p id="weeklyStatus" class="weekly-meta" role="status">공식 주간 시청률 확인 중…</p>
-      <div id="weeklyWinners"></div>
-      <p class="weekly-note"><a class="weekly-source" href="https://www.nielsenkorea.co.kr/tv_terrestrial_day.asp?sub_menu=1_2&amp;area=00" target="_blank" rel="noopener">출처: 닐슨코리아 · 전국 가구 TOP 20 ↗</a></p>
-      <noscript><p class="weekly-meta">위 공식 주간 순위 링크에서 시청률을 확인하세요.</p></noscript>
-    </section>
-
-    <details class="display-settings"><summary>화면·글자 설정 / 앱 설치</summary><div class="comfort-tools" role="group" aria-label="화면과 글자 설정"><button id="comfortTheme" type="button" aria-label="화면 색상 변경: 편안한 회색, 야간, 밝은 낮">화면 · 편안한 회색</button><button id="comfortSize" type="button" aria-pressed="false">글자 · 기본</button></div>    <button id="installBtn" class="install" type="button">📲 홈 화면에 설치</button>
-    <div id="iosGuide" class="ios"><strong>아이폰 최적화 모드</strong><br>채널을 누르면 방송사 공식 온에어가 Safari 새 화면으로 바로 열립니다.<span class="tiny">컴판다 ON AIR 앱은 종료되지 않으므로 뒤로 다시 실행할 필요가 없습니다.</span></div>
-</details>
-    <div class="notice">※ 아이폰은 방송사 보안정책상 앱 내부 표시가 제한될 수 있어 공식 Safari 화면을 우선 사용합니다. 갤럭시·PC에서는 컴판다 채널 전환 화면을 사용할 수 있습니다.</div>
-    <a class="lab-link" href="./devices.html">📱 기종별 화면 테스트 · Device Lab</a>
-  </main>
+<main class="app">
+<header><div class="brand"><h1>컴판다 ON TV</h1><p>보고 싶은 방송을 한곳에서 빠르게 찾습니다.</p></div><span class="pill">LIVE TV</span></header>
+<section class="hero"><div class="eyebrow">COMPANDA · ON TV</div><h2>눈은 편하게, 채널은 빠르게</h2><p>전체 채널·검색·즐겨찾기·최근 시청을 한 화면에 모았습니다. 방송 재생은 공개 온에어 경로를 이용하며, 채널·기기·지역에 따라 제한될 수 있습니다.</p></section>
+<section class="controls"><div class="search"><label class="searchbox">⌕<input id="search" type="search" inputmode="search" autocomplete="off" placeholder="채널 검색 · KBS, 뉴스, 애니, 홈쇼핑"></label><button id="clear" class="clear" aria-label="검색 지우기">×</button></div><nav id="tabs" class="tabs" aria-label="채널 분류"></nav></section>
+<section id="recentWrap" class="recent-wrap"><div class="recent-head"><h3>최근 본 채널</h3><button id="recentClear" class="recent-clear">전체 삭제</button></div><div id="recent" class="recent"></div></section>
+<div class="list-head"><h3 id="sectionTitle">전체 채널</h3><span id="count" class="count"></span></div>
+<section id="grid" class="grid" aria-live="polite"></section>
+<p class="note">컴판다 ON TV는 방송 영상을 저장하거나 재송출하지 않고 공개된 온에어 경로를 연결합니다. 웹 재생 제한으로 표시된 채널은 방송사 또는 원 제공처의 정책에 따라 외부 재생이 제한될 수 있습니다. 편성·로그인·지역 제한은 각 방송사의 공식 안내를 우선합니다.</p>
+<div class="bottom"><a class="device" href="./devices.html">기종별 화면 테스트 · Device Lab</a></div>
+</main>
+<script src="./channels.js"></script>
 <script>
-const params=new URLSearchParams(location.search);if(params.get('preview')==='1')document.documentElement.dataset.preview='1';
-let deferredPrompt=null;const installBtn=document.getElementById('installBtn');const iosGuide=document.getElementById('iosGuide');const ua=navigator.userAgent||'';const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);const isSamsung=/SamsungBrowser|SM-/i.test(ua);const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
-function applyViewportClass(){const w=Math.round(window.visualViewport?.width||window.innerWidth);const h=Math.round(window.visualViewport?.height||window.innerHeight);const root=document.documentElement;root.dataset.viewport=w<=360?'compact':w<=430?'standard':w<=600?'large-phone':'fold-open';root.dataset.orientation=w>h?'landscape':'portrait'}applyViewportClass();window.addEventListener('resize',applyViewportClass,{passive:true});window.visualViewport?.addEventListener('resize',applyViewportClass,{passive:true});
-if(isIOS&&params.get('preview')!=='1')iosGuide.style.display='block';
-document.querySelectorAll('.ch').forEach(a=>{if(!isIOS&&a.dataset.direct!=='1'){a.href=a.dataset.viewer;a.removeAttribute('target')}a.addEventListener('click',()=>{try{localStorage.setItem('companda-last-channel',a.dataset.channel)}catch(e){}})});
-if(isStandalone||params.get('preview')==='1')installBtn.style.display='none';
-if(isIOS&&!isStandalone&&params.get('preview')!=='1'){installBtn.textContent='🍎 아이폰 홈 화면에 추가';installBtn.addEventListener('click',()=>iosGuide.scrollIntoView({behavior:'smooth',block:'center'}))}else if(params.get('preview')!=='1'){window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block'});installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else if(isSamsung)alert('Samsung Internet 메뉴(≡)에서 “현재 페이지 추가 → 홈 화면” 또는 “앱 설치”를 선택하세요.');else alert('Chrome 메뉴에서 “홈 화면에 추가” 또는 “앱 설치”를 선택하세요.')})}
-if('serviceWorker'in navigator&&params.get('preview')!=='1')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+const C=window.COMPANDA_CHANNELS||[];
+const cats=['전체','★ 즐겨찾기','지상파','뉴스·종편','케이블·지방','영화·예능','키즈·애니','교육·공공','종교·외국','홈쇼핑'];
+const grid=document.getElementById('grid'),tabs=document.getElementById('tabs'),search=document.getElementById('search'),count=document.getElementById('count'),title=document.getElementById('sectionTitle');
+const getFav=()=>{try{return JSON.parse(localStorage.getItem('companda-tv-fav')||'[]')}catch(e){return[]}};
+const setFav=v=>localStorage.setItem('companda-tv-fav',JSON.stringify(v));
+const getRecent=()=>{try{return JSON.parse(localStorage.getItem('companda-tv-recent')||'[]')}catch(e){return[]}};
+const setRecent=v=>localStorage.setItem('companda-tv-recent',JSON.stringify(v.slice(0,8)));
+let active='전체';
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function renderTabs(){tabs.innerHTML=cats.map(c=>`<button class="tab ${c===active?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');tabs.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{active=b.dataset.cat;renderTabs();render()})}
+function filtered(){const q=search.value.trim().toLowerCase(),fav=getFav();return C.filter(ch=>{const category=active==='전체'||(active==='★ 즐겨찾기'?fav.includes(ch.id):ch.cat===active);const text=!q||(`${ch.name} ${ch.cat}`).toLowerCase().includes(q);return category&&text})}
+function toggleFav(id){let f=getFav();f=f.includes(id)?f.filter(x=>x!==id):[...f,id];setFav(f);render()}
+function watch(id){const ch=C.find(x=>x.id===id);if(!ch)return;let r=getRecent().filter(x=>x!==id);r.unshift(id);setRecent(r);renderRecent();window.open(ch.url,'compandaOnTvChannel')}
+function card(ch,favs){return `<article class="card"><div class="row"><div class="logo">${esc(ch.mark)}</div><div class="meta"><div class="name">${esc(ch.name)}</div><div class="cat">${esc(ch.cat)}</div></div><div class="status ${ch.blocked?'blocked':''}">${ch.blocked?'웹 제한':'LIVE'}</div></div><div class="actions"><button class="watch" data-watch="${ch.id}">${ch.blocked?'시청 경로 열기':'바로 보기'}</button><button class="fav ${favs.includes(ch.id)?'on':''}" data-fav="${ch.id}" aria-label="즐겨찾기">★</button></div></article>`}
+function render(){const arr=filtered(),fav=getFav();title.textContent=active==='★ 즐겨찾기'?'즐겨찾기':active==='전체'?'전체 채널':active;count.textContent=`${arr.length}개`;grid.innerHTML=arr.length?arr.map(ch=>card(ch,fav)).join(''):'<div class="empty">조건에 맞는 채널이 없습니다.</div>';grid.querySelectorAll('[data-watch]').forEach(b=>b.onclick=()=>watch(Number(b.dataset.watch)));grid.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>toggleFav(Number(b.dataset.fav)))}
+function renderRecent(){const ids=getRecent(),wrap=document.getElementById('recentWrap'),box=document.getElementById('recent');const list=ids.map(id=>C.find(x=>x.id===id)).filter(Boolean);wrap.style.display=list.length?'block':'none';box.innerHTML=list.map(ch=>`<button data-r="${ch.id}">${esc(ch.name)}</button>`).join('');box.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>watch(Number(b.dataset.r)))}
+search.addEventListener('input',render);document.getElementById('clear').onclick=()=>{search.value='';search.focus();render()};document.getElementById('recentClear').onclick=()=>{setRecent([]);renderRecent()};
+renderTabs();render();renderRecent();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
-<script src="./weekly-ratings.js?v=13" defer></script>
-
-<script>
-(() => {
-  const search=document.getElementById('sbsVodSearch'), genre=document.getElementById('sbsVodGenre');
-  const items=[...document.querySelectorAll('.sbs-vod-item')];
-  const normalize=s=>s.replace(/\s+/g,'').toLocaleLowerCase('ko');
-  function filter(){
-    const q=normalize(search.value); let count=0;
-    items.forEach(a=>{const show=(genre.value==='all'||a.dataset.genre===genre.value)&&normalize(a.dataset.title).includes(q);a.hidden=!show;if(show)count++});
-    document.getElementById('sbsVodCount').textContent=count+'개 작품';
-    document.getElementById('sbsVodEmpty').hidden=count!==0;
-  }
-  search.addEventListener('input',filter);genre.addEventListener('change',filter);
-})();
-</script>
-
-
-<script>
-(() => {
-  const entries=[['sbsBannerBtn','sbsFreeVod'],['lottoBannerBtn','lottoPanel']];
-  entries.forEach(([buttonId,panelId])=>{
-    const button=document.getElementById(buttonId),panel=document.getElementById(panelId);
-    button.addEventListener('click',()=>{
-      const opening=panel.hidden;
-      entries.forEach(([otherButton,otherPanel])=>{
-        document.getElementById(otherButton).setAttribute('aria-expanded','false');
-        document.getElementById(otherPanel).hidden=true;
-      });
-      panel.hidden=!opening;button.setAttribute('aria-expanded',String(opening));
-      if(opening&&panelId==='lottoPanel'){
-        const frame=document.getElementById('lottoFrame');
-        if(!frame.hasAttribute('src'))frame.src=frame.dataset.src;
-      }
-    });
-  });
-})();
-</script>
-
-</body>
-</html>
-
+</body></html>
