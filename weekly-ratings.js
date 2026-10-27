@@ -94,3 +94,18 @@
   }
   load();
 })();
+
+(() => {
+  const SPORTS_URL = 'https://seoul-tv.net/streaming?ch=live202';
+  function applySportsLink() {
+    const sports = document.querySelector('.sports-link, .ch[data-channel="sports"]');
+    if (!sports) return;
+    sports.href = SPORTS_URL;
+    sports.dataset.official = SPORTS_URL;
+    sports.target = '_blank';
+    sports.rel = 'noopener';
+    sports.setAttribute('aria-label', 'SPORTS 스포츠 페이지 열기');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applySportsLink, {once:true});
+  else applySportsLink();
+})();
